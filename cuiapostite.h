@@ -17,6 +17,15 @@ public:
     CUIAPostite(QWidget *parent = nullptr);
     ~CUIAPostite();
 
+private slots:
+    void on_IDC_SAVE_clicked();
+
+    void on_IDC_NEW_clicked();
+
+    void on_IDC_PARA_clicked();
+
+    void on_IDC_QUIT_clicked();
+
 private:
     Ui::CUIAPostite *ui;
 };
