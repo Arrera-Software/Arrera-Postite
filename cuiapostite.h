@@ -2,6 +2,10 @@
 #define CUIAPOSTITE_H
 
 #include <QMainWindow>
+#include <QDialog>
+#include <QFile>
+#include <QFileDialog>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,6 +29,8 @@ private slots:
     void on_IDC_PARA_clicked();
 
     void on_IDC_QUIT_clicked();
+
+    void on_IDC_OPEN_clicked();
 
 private:
     Ui::CUIAPostite *ui;

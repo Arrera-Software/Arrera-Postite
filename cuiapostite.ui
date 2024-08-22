@@ -48,6 +48,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QPushButton" name="IDC_OPEN">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="IDC_SAVE">
             <property name="text">
              <string>PushButton</string>
@@ -78,7 +85,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit">
+         <widget class="QTextEdit" name="ZONETEXTE">
           <property name="styleSheet">
            <string notr="true">background-color:rgb(255, 255, 192)</string>
           </property>
