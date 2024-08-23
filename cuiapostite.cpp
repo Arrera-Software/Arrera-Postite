@@ -6,6 +6,13 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite)
 {
     ui->setupUi(this);
+    indexMain = ui->postite->indexOf(ui->main);
+    indexPara = ui->postite->indexOf(ui->para);
+    ui->postite->setCurrentIndex(indexMain);
+    if (!fileExists("postite.ini"))
+    {
+        createFile();
+    }
 }
 
 CUIAPostite::~CUIAPostite()
@@ -70,7 +77,7 @@ void CUIAPostite::on_IDC_NEW_clicked()
 
 void CUIAPostite::on_IDC_PARA_clicked()
 {
-
+    ui->postite->setCurrentIndex(indexPara);
 }
 
 
@@ -97,3 +104,44 @@ void CUIAPostite::on_IDC_OPEN_clicked()
     }
 }
 
+
+void CUIAPostite::on_IDC_RETOUR_clicked()
+{
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_SETEMPLACEMENT_clicked()
+{
+    QString folder = QFileDialog::getExistingDirectory(this,
+                                      "Choisir un dossier",
+                                      QDir::homePath(),
+                                      QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+    if (folder.isEmpty())
+    {
+        QMessageBox::warning(this,"Arrera Postite","Aucun dossier selectionner");
+    }
+    else
+    {
+        QSettings settings("postite.ini", QSettings::IniFormat);
+        settings.beginGroup("postite");
+        settings.setValue("emplacement", folder);
+        settings.endGroup();
+        QMessageBox::information(this,"Arrera Postite","Dossier enregistrer");
+    }
+}
+
+bool CUIAPostite::fileExists(const QString &filePath)
+{
+    QFile file(filePath);
+    return file.exists();
+}
+
+void CUIAPostite::createFile()
+{
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    settings.setValue("emplacement", "null");
+    settings.endGroup();
+}

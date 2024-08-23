@@ -6,6 +6,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QSettings>
+#include <QFile>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,7 +34,17 @@ private slots:
 
     void on_IDC_OPEN_clicked();
 
+    void on_IDC_RETOUR_clicked();
+
+    void on_IDC_SETEMPLACEMENT_clicked();
+
+    bool fileExists(const QString &filePath);
+
+    void createFile();
+
 private:
     Ui::CUIAPostite *ui;
+    int indexMain, indexPara ;
+    QSettings *settings;
 };
 #endif // CUIAPOSTITE_H
