@@ -24,8 +24,17 @@ void CUIAPostite::on_IDC_SAVE_clicked()
 {
     QString contenuTextEdit;
     QString nomFichier ;
-    nomFichier=QFileDialog::getSaveFileName(nullptr,
-                                              "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
+    if (!emplacementIsSet())
+    {
+        nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                  "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
+    }
+    else
+    {
+        nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                  "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
+    }
+
     QFile file(nomFichier);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -55,8 +64,16 @@ void CUIAPostite::on_IDC_NEW_clicked()
         {
             QString contenuTextEdit;
             QString nomFichier ;
-            nomFichier=QFileDialog::getSaveFileName(nullptr,
+            if (!emplacementIsSet())
+            {
+                nomFichier=QFileDialog::getSaveFileName(nullptr,
                                                       "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
+            }
+            else
+            {
+                nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                          "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
+            }
             QFile file(nomFichier);
             if (file.open(QIODevice::WriteOnly | QIODevice::Text))
             {
@@ -91,9 +108,18 @@ void CUIAPostite::on_IDC_OPEN_clicked()
 {
     QString contenu;
     QString nomFichier ;
-    nomFichier = QFileDialog::getOpenFileName(this,
-                                              "Choisir un fichier à ouvrir",
-                                              QDir::homePath(), "Fichier Pense-bete (*.ab)");
+    if (!emplacementIsSet())
+    {
+        nomFichier = QFileDialog::getOpenFileName(this,
+                                                  "Choisir un fichier à ouvrir",
+                                                  QDir::homePath(), "Fichier Pense-bete (*.ab)");
+    }
+    else
+    {
+        nomFichier = QFileDialog::getOpenFileName(this,
+                                                  "Choisir un fichier à ouvrir",
+                                                  getEmplacement(), "Fichier Pense-bete (*.ab)");
+    }
     QFile fichier(nomFichier);
     if (fichier.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -144,4 +170,19 @@ void CUIAPostite::createFile()
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
     settings.endGroup();
+}
+
+bool CUIAPostite::emplacementIsSet()
+{
+    return getEmplacement().isEmpty();
+}
+
+QString CUIAPostite::getEmplacement()
+{
+    QString var ;
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    var = settings.value("emplacement").toString();
+    settings.endGroup();
+    return var;
 }

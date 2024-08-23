@@ -42,6 +42,10 @@ private slots:
 
     void createFile();
 
+    bool emplacementIsSet();
+
+    QString getEmplacement();
+
 private:
     Ui::CUIAPostite *ui;
     int indexMain, indexPara ;
