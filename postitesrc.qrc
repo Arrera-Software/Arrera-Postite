@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>icon postite.png</file>
+        <file>new.png</file>
+        <file>open.png</file>
+        <file>parametre.png</file>
+        <file>quit.png</file>
+        <file>save.png</file>
+    </qresource>
+</RCC>
