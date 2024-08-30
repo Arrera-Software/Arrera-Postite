@@ -140,6 +140,11 @@
         </item>
         <item>
          <widget class="QTextEdit" name="ZONETEXTE">
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color:rgb(255, 255, 192)</string>
           </property>
