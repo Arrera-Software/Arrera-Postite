@@ -139,7 +139,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QTextEdit" name="ZONETEXTE">
+         <widget class="MyTextEdit" name="ZONETEXTE">
           <property name="font">
            <font>
             <pointsize>20</pointsize>
@@ -313,6 +313,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">mytextedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="postitesrc.qrc"/>
  </resources>

@@ -10,10 +10,12 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    cuiapostite.cpp
+    cuiapostite.cpp \
+    mytextedit.cpp
 
 HEADERS += \
-    cuiapostite.h
+    cuiapostite.h \
+    mytextedit.h
 
 FORMS += \
     cuiapostite.ui
