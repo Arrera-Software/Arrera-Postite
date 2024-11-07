@@ -8,10 +8,18 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     ui->setupUi(this);
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
+    indexColor = ui->postite->indexOf(ui->colorSelect);
     ui->postite->setCurrentIndex(indexMain);
     if (!fileExists("postite.ini"))
     {
         createFile();
+    }
+    else
+    {
+        QSettings settings("postite.ini", QSettings::IniFormat);
+        settings.beginGroup("postite");
+        color = settings.value("color").toString();
+        setColor(color);
     }
 }
 
@@ -169,6 +177,7 @@ void CUIAPostite::createFile()
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
+    settings.setValue("color", "yellow");
     settings.endGroup();
 }
 
@@ -186,3 +195,70 @@ QString CUIAPostite::getEmplacement()
     settings.endGroup();
     return var;
 }
+
+void CUIAPostite::on_IDC_SETCOLOR_clicked()
+{
+    ui->postite->setCurrentIndex(indexColor);
+}
+
+
+void CUIAPostite::on_IDC_RETOURCOLOR_clicked()
+{
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_YELLOW_clicked()
+{
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    settings.setValue("color", "yellow");
+    setColor("yellow");
+    settings.endGroup();
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_WHITE_clicked()
+{
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    settings.setValue("color", "white");
+    setColor("white");
+    settings.endGroup();
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_BLACK_clicked()
+{
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    settings.setValue("color", "black");
+    setColor("black");
+    settings.endGroup();
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+bool CUIAPostite::setColor(QString color)
+{
+    if (color == "yellow")
+    {
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192)");
+        return true;
+    }
+    else if (color == "white")
+    {
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255)");
+        return true;
+    } else if (color == "black")
+    {
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(0, 0, 0)");
+        return true;
+    } else
+    {
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192)");
+        return false;
+    }
+}
+

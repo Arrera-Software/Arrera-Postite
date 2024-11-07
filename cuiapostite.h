@@ -46,9 +46,22 @@ private slots:
 
     QString getEmplacement();
 
+    void on_IDC_SETCOLOR_clicked();
+
+    void on_IDC_RETOURCOLOR_clicked();
+
+    void on_IDC_YELLOW_clicked();
+
+    void on_IDC_WHITE_clicked();
+
+    void on_IDC_BLACK_clicked();
+
+    bool setColor(QString color);
+
 private:
     Ui::CUIAPostite *ui;
-    int indexMain, indexPara ;
+    int indexMain, indexPara ,indexColor ;
+    QString color;
     QSettings *settings;
 };
 #endif // CUIAPOSTITE_H
