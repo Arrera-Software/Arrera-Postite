@@ -271,36 +271,59 @@ void CUIAPostite::on_IDC_VIEW_clicked()
 
 void CUIAPostite::on_IDC_TITRE1_clicked()
 {
-
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("#");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
 void CUIAPostite::on_IDC_TITRE2_clicked()
 {
-
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("##");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
 void CUIAPostite::on_IDC_TITRE3_clicked()
 {
-
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("###");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
 void CUIAPostite::on_IDC_GRAS_clicked()
 {
-
+    QString texteAInserer = "****";
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
+    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
 void CUIAPostite::on_IDC_ITALIQUE_clicked()
 {
-
+    QString texteAInserer = "__";
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
+    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
 void CUIAPostite::on_IDC_BARRE_clicked()
 {
-
+    QString texteAInserer = "~~~~";
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
+    ui->ZONETEXTE->setTextCursor(curseur);
 }
-
