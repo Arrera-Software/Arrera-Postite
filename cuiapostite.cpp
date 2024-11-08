@@ -262,3 +262,45 @@ bool CUIAPostite::setColor(QString color)
     }
 }
 
+
+void CUIAPostite::on_IDC_VIEW_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_TITRE1_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_TITRE2_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_TITRE3_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_GRAS_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_ITALIQUE_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_BARRE_clicked()
+{
+
+}
+

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1000</width>
     <height>600</height>
    </rect>
   </property>
@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -55,87 +55,152 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="IDC_OPEN">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="postitesrc.qrc">
-              <normaloff>:/img/open.png</normaloff>:/img/open.png</iconset>
-            </property>
-            <property name="iconSize">
+           <widget class="QPushButton" name="IDC_TITRE1">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
+              <width>100</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>23</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Titre 1</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="IDC_SAVE">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="postitesrc.qrc">
-              <normaloff>:/img/save.png</normaloff>:/img/save.png</iconset>
-            </property>
-            <property name="iconSize">
+           <widget class="QPushButton" name="IDC_TITRE2">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
+              <width>100</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Titre 2</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="IDC_NEW">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="postitesrc.qrc">
-              <normaloff>:/img/new.png</normaloff>:/img/new.png</iconset>
-            </property>
-            <property name="iconSize">
+           <widget class="QPushButton" name="IDC_TITRE3">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
+              <width>100</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>18</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Titre 3</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="IDC_PARA">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="postitesrc.qrc">
-              <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
-            </property>
-            <property name="iconSize">
+           <widget class="QPushButton" name="IDC_GRAS">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
+              <width>100</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+              <bold>true</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Gras</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="IDC_QUIT">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="postitesrc.qrc">
-              <normaloff>:/img/quit.png</normaloff>:/img/quit.png</iconset>
-            </property>
-            <property name="iconSize">
+           <widget class="QPushButton" name="IDC_ITALIQUE">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
+              <width>100</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+              <italic>true</italic>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Italique</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="IDC_BARRE">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+              <strikeout>true</strikeout>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Barre</string>
             </property>
            </widget>
           </item>
@@ -157,6 +222,12 @@
           </item>
           <item>
            <widget class="QFrame" name="frame">
+            <property name="minimumSize">
+             <size>
+              <width>31</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="frameShape">
              <enum>QFrame::Shape::StyledPanel</enum>
             </property>
@@ -165,135 +236,104 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
-              <widget class="QPushButton" name="IDC_TITRE1">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
+              <widget class="QPushButton" name="IDC_SAVE">
                <property name="text">
                 <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/save.png</normaloff>:/img/save.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_TITRE2">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
+              <widget class="QPushButton" name="IDC_OPEN">
                <property name="text">
                 <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/open.png</normaloff>:/img/open.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_TITRE3">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
+              <widget class="QPushButton" name="IDC_NEW">
                <property name="text">
                 <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/new.png</normaloff>:/img/new.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_ITALIQUE">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
+              <widget class="QPushButton" name="IDC_PARA">
                <property name="text">
                 <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_GRAS">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
+              <widget class="QPushButton" name="IDC_VIEW">
                <property name="text">
                 <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/viewxcf.png</normaloff>:/img/viewxcf.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_BARRE">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
-               </property>
+              <widget class="QPushButton" name="IDC_QUIT">
                <property name="text">
                 <string/>
                </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_GRASITALIQUE">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>60</height>
-                </size>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/quit.png</normaloff>:/img/quit.png</iconset>
                </property>
-               <property name="maximumSize">
+               <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>40</width>
+                 <height>40</height>
                 </size>
-               </property>
-               <property name="text">
-                <string/>
                </property>
               </widget>
              </item>

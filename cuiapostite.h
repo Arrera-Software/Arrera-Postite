@@ -58,6 +58,20 @@ private slots:
 
     bool setColor(QString color);
 
+    void on_IDC_VIEW_clicked();
+
+    void on_IDC_TITRE1_clicked();
+
+    void on_IDC_TITRE2_clicked();
+
+    void on_IDC_TITRE3_clicked();
+
+    void on_IDC_GRAS_clicked();
+
+    void on_IDC_ITALIQUE_clicked();
+
+    void on_IDC_BARRE_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     int indexMain, indexPara ,indexColor ;

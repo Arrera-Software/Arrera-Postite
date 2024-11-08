@@ -6,5 +6,6 @@
         <file>parametre.png</file>
         <file>quit.png</file>
         <file>save.png</file>
+        <file>viewxcf.png</file>
     </qresource>
 </RCC>
