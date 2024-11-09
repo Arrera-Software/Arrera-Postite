@@ -24,6 +24,13 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         color = settings.value("color").toString();
         setColor(color);
     }
+    #ifdef Q_OS_WIN
+        wkhtmltopdfPath = "C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe";  // Modifier selon l'installation
+    #elif defined(Q_OS_LINUX)
+        wkhtmltopdfPath = "wkhtmltopdf";  // wkhtmltopdf installé dans PATH sur Linux
+    #else
+        wkhtmltopdfPath = "";  // Autres OS
+    #endif
 }
 
 CUIAPostite::~CUIAPostite()
@@ -411,6 +418,60 @@ void CUIAPostite::on_IDC_PRINDMD_clicked()
 
 void CUIAPostite::on_IDC_PRINT_clicked()
 {
+    QString htmlContent = converseMD();
+    QString styledHtml = applyCssToHtml(htmlContent);
 
+    // Enregistrer le HTML temporaire dans un fichier
+    QString htmlFilePath = QDir::temp().filePath("temp_markdown.html");
+    QFile htmlFile(htmlFilePath);
+    if (htmlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&htmlFile);
+        out << styledHtml;
+        htmlFile.close();
+    } else {
+        QMessageBox::warning(nullptr, "Erreur", "Impossible de créer le fichier HTML temporaire.");
+        return;
+    }
+
+    // Choisir le fichier PDF de sortie
+    QString pdfFilePath = QFileDialog::getSaveFileName(nullptr,
+                                                       "Enregistrer en PDF",
+                                                       QDir::homePath(),
+                                                       "PDF (*.pdf)");
+    if (pdfFilePath.isEmpty()) {
+        return;
+    }
+
+    // Vérifie si wkhtmltopdf est disponible
+    if (wkhtmltopdfPath.isEmpty()) {
+        QMessageBox::warning(nullptr, "Erreur", "wkhtmltopdf n'est pas configuré pour ce système d'exploitation.");
+        return;
+    }
+
+    // Convertir HTML en PDF en utilisant wkhtmltopdf
+    QProcess process;
+    QStringList arguments;
+    arguments << htmlFilePath << pdfFilePath;
+    process.start(wkhtmltopdfPath, arguments);
+
+    if (!process.waitForFinished()) {
+        QMessageBox::warning(nullptr, "Erreur", "Échec de la conversion en PDF.");
+        return;
+    }
+
+    QMessageBox::information(nullptr, "Succès", "Le fichier a été converti en PDF avec succès !");
+}
+
+
+QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
+    QString css = R"(
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1, h2, h3 { color: #333; }
+            p { color: #555; line-height: 1.6; }
+            code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
+        </style>
+    )";
+    return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";
 }
 
