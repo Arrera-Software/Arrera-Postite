@@ -88,6 +88,8 @@ private slots:
 
     void on_IDC_PRINT_clicked();
 
+    void on_IDC_ADD_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     int indexMain, indexPara ,indexColor,indexView,indexExport ;

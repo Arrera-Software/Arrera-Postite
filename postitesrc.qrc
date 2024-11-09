@@ -11,5 +11,6 @@
         <file>imprimante.png</file>
         <file>md.png</file>
         <file>pdf.png</file>
+        <file>inserer.png</file>
     </qresource>
 </RCC>

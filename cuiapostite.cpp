@@ -463,3 +463,9 @@ QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
     return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";
 }
 
+
+void CUIAPostite::on_IDC_ADD_clicked()
+{
+
+}
+
