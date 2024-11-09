@@ -7,5 +7,6 @@
         <file>quit.png</file>
         <file>save.png</file>
         <file>viewxcf.png</file>
+        <file>export.png</file>
     </qresource>
 </RCC>

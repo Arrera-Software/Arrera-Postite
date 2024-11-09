@@ -359,3 +359,9 @@ QString CUIAPostite::converseMD()
     return html;
 }
 
+
+void CUIAPostite::on_IDC_EXPORT_clicked()
+{
+
+}
+

@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -287,13 +287,13 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_PARA">
+              <widget class="QPushButton" name="IDC_VIEW">
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
+                 <normaloff>:/img/viewxcf.png</normaloff>:/img/viewxcf.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -304,13 +304,30 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IDC_VIEW">
+              <widget class="QPushButton" name="IDC_EXPORT">
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/viewxcf.png</normaloff>:/img/viewxcf.png</iconset>
+                 <normaloff>:/img/export.png</normaloff>:/img/export.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="IDC_PARA">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="postitesrc.qrc">
+                 <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
