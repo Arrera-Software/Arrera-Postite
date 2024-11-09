@@ -388,47 +388,32 @@ void CUIAPostite::on_IDC_RETOUREXPORT_clicked()
 void CUIAPostite::on_IDC_PRINTPDF_clicked()
 {
     QString htmlContent = converseMD();
+
+    // 2. Appliquer un style CSS pour l'impression
     QString styledHtml = applyCssToHtml(htmlContent);
 
-    // Enregistrer le HTML temporaire dans un fichier
-    QString htmlFilePath = QDir::temp().filePath("temp_markdown.html");
-    QFile htmlFile(htmlFilePath);
-    if (htmlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&htmlFile);
-        out << styledHtml;
-        htmlFile.close();
-    } else {
-        QMessageBox::warning(nullptr, "Erreur", "Impossible de créer le fichier HTML temporaire.");
-        return;
+    // 3. Créer une instance de QPrinter en mode PDF
+    QPrinter printer(QPrinter::HighResolution);
+
+    // 4. Définir le fichier de sortie (le PDF)
+    QString outputPath = QFileDialog::getSaveFileName(nullptr, "Enregistrer le PDF", "", "Fichiers PDF (*.pdf)");
+    if (outputPath.isEmpty()) {
+        return;  // L'utilisateur a annulé
     }
 
-    // Choisir le fichier PDF de sortie
-    QString pdfFilePath = QFileDialog::getSaveFileName(nullptr,
-                                                       "Enregistrer en PDF",
-                                                       QDir::homePath(),
-                                                       "PDF (*.pdf)");
-    if (pdfFilePath.isEmpty()) {
-        return;
+    if (!outputPath.endsWith(".pdf", Qt::CaseInsensitive)) {
+        outputPath += ".pdf";
     }
 
-    // Vérifie si wkhtmltopdf est disponible
-    if (wkhtmltopdfPath.isEmpty()) {
-        QMessageBox::warning(nullptr, "Erreur", "wkhtmltopdf n'est pas configuré pour ce système d'exploitation.");
-        return;
-    }
+    printer.setOutputFileName(outputPath);  // Définir le fichier PDF de sortie
 
-    // Convertir HTML en PDF en utilisant wkhtmltopdf
-    QProcess process;
-    QStringList arguments;
-    arguments << htmlFilePath << pdfFilePath;
-    process.start(wkhtmltopdfPath, arguments);
+    // 5. Imprimer le contenu HTML dans le fichier PDF
+    QTextBrowser *browser = new QTextBrowser();
+    browser->setHtml(styledHtml);  // Charger le HTML stylisé
+    browser->print(&printer);  // Imprimer dans le fichier PDF
 
-    if (!process.waitForFinished()) {
-        QMessageBox::warning(nullptr, "Erreur", "Échec de la conversion en PDF.");
-        return;
-    }
-
-    QMessageBox::information(nullptr, "Succès", "Le fichier a été converti en PDF avec succès !");
+    // 6. Libérer les ressources
+    delete browser;
 }
 
 
@@ -459,29 +444,16 @@ void CUIAPostite::on_IDC_PRINDMD_clicked()
 
 void CUIAPostite::on_IDC_PRINT_clicked()
 {
-    // 1. Convertir le Markdown en HTML
     QString htmlContent = converseMD();
-
-    // 2. Appliquer un style CSS pour l'impression
     QString styledHtml = applyCssToHtml(htmlContent);
-
-    // 3. Afficher le HTML stylisé dans un QTextBrowser (optionnel, pour prévisualiser)
     QTextBrowser *browser = new QTextBrowser();
     browser->setHtml(styledHtml);
-
-    // 4. Choisir une imprimante avec QPrinter
     QPrinter printer(QPrinter::HighResolution);
-    //printer.setPageSize(QPrinter::);  // Définir la taille de la page
-
     QPrintDialog printDialog(&printer);
     if (printDialog.exec() == QDialog::Rejected) {
-        return; // L'utilisateur a annulé l'impression
+        return;
     }
-
-    // 5. Imprimer le contenu HTML via le QTextBrowser
     browser->print(&printer);
-
-    // 6. Libérer les ressources
     delete browser;
 }
 
