@@ -387,37 +387,6 @@ void CUIAPostite::on_IDC_RETOUREXPORT_clicked()
 
 void CUIAPostite::on_IDC_PRINTPDF_clicked()
 {
-
-}
-
-
-void CUIAPostite::on_IDC_PRINDMD_clicked()
-{
-    QString contenuTextEdit;
-    QString nomFichier;
-
-    nomFichier = QFileDialog::getSaveFileName(nullptr,
-                                              "Enregistrer le fichier",
-                                              QDir::homePath(),
-                                              "Markdown (*.md)");
-
-    // Vérifie si l'extension est manquante et l'ajoute si nécessaire
-    if (!nomFichier.endsWith(".md", Qt::CaseInsensitive)) {
-        nomFichier += ".md";
-    }
-
-    QFile file(nomFichier);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-        contenuTextEdit = ui->ZONETEXTE->toPlainText();
-        out << contenuTextEdit;
-        file.close();
-    }
-}
-
-
-void CUIAPostite::on_IDC_PRINT_clicked()
-{
     QString htmlContent = converseMD();
     QString styledHtml = applyCssToHtml(htmlContent);
 
@@ -460,6 +429,37 @@ void CUIAPostite::on_IDC_PRINT_clicked()
     }
 
     QMessageBox::information(nullptr, "Succès", "Le fichier a été converti en PDF avec succès !");
+}
+
+
+void CUIAPostite::on_IDC_PRINDMD_clicked()
+{
+    QString contenuTextEdit;
+    QString nomFichier;
+
+    nomFichier = QFileDialog::getSaveFileName(nullptr,
+                                              "Enregistrer le fichier",
+                                              QDir::homePath(),
+                                              "Markdown (*.md)");
+
+    // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+    if (!nomFichier.endsWith(".md", Qt::CaseInsensitive)) {
+        nomFichier += ".md";
+    }
+
+    QFile file(nomFichier);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        contenuTextEdit = ui->ZONETEXTE->toPlainText();
+        out << contenuTextEdit;
+        file.close();
+    }
+}
+
+
+void CUIAPostite::on_IDC_PRINT_clicked()
+{
+
 }
 
 
