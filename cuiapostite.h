@@ -9,6 +9,9 @@
 #include <QSettings>
 #include <QFile>
 #include <QProcess>
+#include <QPrinter>
+#include <QTextBrowser>
+#include <QPrintDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

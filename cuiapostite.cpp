@@ -459,7 +459,30 @@ void CUIAPostite::on_IDC_PRINDMD_clicked()
 
 void CUIAPostite::on_IDC_PRINT_clicked()
 {
+    // 1. Convertir le Markdown en HTML
+    QString htmlContent = converseMD();
 
+    // 2. Appliquer un style CSS pour l'impression
+    QString styledHtml = applyCssToHtml(htmlContent);
+
+    // 3. Afficher le HTML stylisé dans un QTextBrowser (optionnel, pour prévisualiser)
+    QTextBrowser *browser = new QTextBrowser();
+    browser->setHtml(styledHtml);
+
+    // 4. Choisir une imprimante avec QPrinter
+    QPrinter printer(QPrinter::HighResolution);
+    //printer.setPageSize(QPrinter::);  // Définir la taille de la page
+
+    QPrintDialog printDialog(&printer);
+    if (printDialog.exec() == QDialog::Rejected) {
+        return; // L'utilisateur a annulé l'impression
+    }
+
+    // 5. Imprimer le contenu HTML via le QTextBrowser
+    browser->print(&printer);
+
+    // 6. Libérer les ressources
+    delete browser;
 }
 
 
