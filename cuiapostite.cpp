@@ -11,6 +11,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexPara = ui->postite->indexOf(ui->para);
     indexColor = ui->postite->indexOf(ui->colorSelect);
     indexView = ui->postite->indexOf(ui->view);
+    indexExport = ui->postite->indexOf(ui->pageexport);
     ui->postite->setCurrentIndex(indexMain);
     if (!fileExists("postite.ini"))
     {
@@ -361,6 +362,30 @@ QString CUIAPostite::converseMD()
 
 
 void CUIAPostite::on_IDC_EXPORT_clicked()
+{
+    ui->postite->setCurrentIndex(indexExport);
+}
+
+
+void CUIAPostite::on_IDC_RETOUREXPORT_clicked()
+{
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_PRINTPDF_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_PRINDMD_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_PRINT_clicked()
 {
 
 }

@@ -8,5 +8,8 @@
         <file>save.png</file>
         <file>viewxcf.png</file>
         <file>export.png</file>
+        <file>imprimante.png</file>
+        <file>md.png</file>
+        <file>pdf.png</file>
     </qresource>
 </RCC>

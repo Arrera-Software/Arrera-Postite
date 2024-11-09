@@ -74,9 +74,19 @@ private slots:
 
     void on_IDC_RETOUREDITEUR_clicked();
 
+    void on_IDC_EXPORT_clicked();
+
+    void on_IDC_RETOUREXPORT_clicked();
+
+    void on_IDC_PRINTPDF_clicked();
+
+    void on_IDC_PRINDMD_clicked();
+
+    void on_IDC_PRINT_clicked();
+
 private:
     Ui::CUIAPostite *ui;
-    int indexMain, indexPara ,indexColor,indexView ;
+    int indexMain, indexPara ,indexColor,indexView,indexExport ;
     QString color;
     QSettings *settings;
     QString converseMD();
