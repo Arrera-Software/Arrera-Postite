@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">

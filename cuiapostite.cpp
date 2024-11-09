@@ -46,6 +46,11 @@ void CUIAPostite::on_IDC_SAVE_clicked()
                                                   "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
     }
 
+    // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+    if (!nomFichier.endsWith(".ab", Qt::CaseInsensitive)) {
+        nomFichier += ".ab";
+    }
+
     QFile file(nomFichier);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -381,7 +386,26 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
 
 void CUIAPostite::on_IDC_PRINDMD_clicked()
 {
+    QString contenuTextEdit;
+    QString nomFichier;
 
+    nomFichier = QFileDialog::getSaveFileName(nullptr,
+                                              "Enregistrer le fichier",
+                                              QDir::homePath(),
+                                              "Markdown (*.md)");
+
+    // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+    if (!nomFichier.endsWith(".md", Qt::CaseInsensitive)) {
+        nomFichier += ".md";
+    }
+
+    QFile file(nomFichier);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        contenuTextEdit = ui->ZONETEXTE->toPlainText();
+        out << contenuTextEdit;
+        file.close();
+    }
 }
 
 
