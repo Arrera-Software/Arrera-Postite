@@ -92,7 +92,6 @@ private:
     Ui::CUIAPostite *ui;
     int indexMain, indexPara ,indexColor,indexView,indexExport ;
     QString color;
-    QString wkhtmltopdfPath;
     QSettings *settings;
     QString converseMD();
     QString applyCssToHtml(const QString &htmlContent);

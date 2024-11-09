@@ -24,13 +24,6 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         color = settings.value("color").toString();
         setColor(color);
     }
-    #ifdef Q_OS_WIN
-        wkhtmltopdfPath = "C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe";  // Modifier selon l'installation
-    #elif defined(Q_OS_LINUX)
-        wkhtmltopdfPath = "wkhtmltopdf";  // wkhtmltopdf installé dans PATH sur Linux
-    #else
-        wkhtmltopdfPath = "";  // Autres OS
-    #endif
 }
 
 CUIAPostite::~CUIAPostite()
