@@ -72,10 +72,13 @@ private slots:
 
     void on_IDC_BARRE_clicked();
 
+    void on_IDC_RETOUREDITEUR_clicked();
+
 private:
     Ui::CUIAPostite *ui;
-    int indexMain, indexPara ,indexColor ;
+    int indexMain, indexPara ,indexColor,indexView ;
     QString color;
     QSettings *settings;
+    QString converseMD();
 };
 #endif // CUIAPOSTITE_H

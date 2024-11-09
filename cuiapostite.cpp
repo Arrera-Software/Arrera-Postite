@@ -1,4 +1,5 @@
 #include "cuiapostite.h"
+#include <cmark.h>
 #include "ui_cuiapostite.h"
 
 CUIAPostite::CUIAPostite(QWidget *parent)
@@ -9,6 +10,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
     indexColor = ui->postite->indexOf(ui->colorSelect);
+    indexView = ui->postite->indexOf(ui->view);
     ui->postite->setCurrentIndex(indexMain);
     if (!fileExists("postite.ini"))
     {
@@ -265,7 +267,12 @@ bool CUIAPostite::setColor(QString color)
 
 void CUIAPostite::on_IDC_VIEW_clicked()
 {
-
+    QString content = converseMD();
+    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setHtml(content);
+    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
+    ui->postite->setCurrentIndex(indexView);
 }
 
 
@@ -327,3 +334,28 @@ void CUIAPostite::on_IDC_BARRE_clicked()
     curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
 }
+
+void CUIAPostite::on_IDC_RETOUREDITEUR_clicked()
+{
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+QString CUIAPostite::converseMD()
+{
+    QString markdownData = ui->ZONETEXTE->toPlainText();
+
+    // Convertit markdownData en UTF-8 pour l'utiliser avec cmark
+    QByteArray utf8Data = markdownData.toUtf8();
+
+    // Utilise cmark pour convertir le texte Markdown en HTML
+    char *htmlData = cmark_markdown_to_html(utf8Data.constData(), utf8Data.size(), CMARK_OPT_DEFAULT);
+
+    // Convertit le résultat en QString
+    QString html = QString::fromUtf8(htmlData);
+
+    // Libère la mémoire allouée par cmark
+    free(htmlData);
+
+    return html;
+}
+
