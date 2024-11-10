@@ -353,26 +353,6 @@ void CUIAPostite::on_IDC_RETOUREDITEUR_clicked()
     ui->postite->setCurrentIndex(indexMain);
 }
 
-QString CUIAPostite::converseMD()
-{
-    QString markdownData = ui->ZONETEXTE->toPlainText();
-
-    // Convertit markdownData en UTF-8 pour l'utiliser avec cmark
-    QByteArray utf8Data = markdownData.toUtf8();
-
-    // Utilise cmark pour convertir le texte Markdown en HTML
-    char *htmlData = cmark_markdown_to_html(utf8Data.constData(), utf8Data.size(), CMARK_OPT_DEFAULT);
-
-    // Convertit le résultat en QString
-    QString html = QString::fromUtf8(htmlData);
-
-    // Libère la mémoire allouée par cmark
-    free(htmlData);
-
-    return html;
-}
-
-
 void CUIAPostite::on_IDC_EXPORT_clicked()
 {
     ui->postite->setCurrentIndex(indexExport);
@@ -449,7 +429,11 @@ void CUIAPostite::on_IDC_PRINDMD_clicked()
 
 void CUIAPostite::on_IDC_PRINT_clicked()
 {
-    QString htmlContent = converseMD();
+    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
+    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
+    QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
     QString styledHtml = applyCssToHtml(htmlContent);
     QTextBrowser *browser = new QTextBrowser();
     browser->setHtml(styledHtml);

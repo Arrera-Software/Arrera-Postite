@@ -96,7 +96,6 @@ private:
     int indexMain, indexPara ,indexColor,indexView,indexExport ;
     QString color;
     QSettings *settings;
-    QString converseMD();
     QString applyCssToHtml(const QString &htmlContent);
 };
 #endif // CUIAPOSTITE_H
