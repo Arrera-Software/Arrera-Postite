@@ -12,6 +12,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexColor = ui->postite->indexOf(ui->colorSelect);
     indexView = ui->postite->indexOf(ui->view);
     indexExport = ui->postite->indexOf(ui->pageexport);
+    indexInserer = ui->postite->indexOf(ui->insersion);
     ui->postite->setCurrentIndex(indexMain);
     if (!fileExists("postite.ini"))
     {
@@ -273,21 +274,15 @@ bool CUIAPostite::setColor(QString color)
 
 void CUIAPostite::on_IDC_VIEW_clicked()
 {
-    /*
-    QString content = converseMD();
-    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setHtml(content);
-    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
-    ui->postite->setCurrentIndex(indexView);
-    */
     ui->VIEWFILEMAKEDOWN->setReadOnly(false);
     ui->VIEWFILEMAKEDOWN->clear();
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
+    QString styledHtml = applyCssToHtml(ui->VIEWFILEMAKEDOWN->toHtml());
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     ui->postite->setCurrentIndex(indexView);
 }
-
 
 void CUIAPostite::on_IDC_TITRE1_clicked()
 {
@@ -485,6 +480,12 @@ QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
 
 void CUIAPostite::on_IDC_ADD_clicked()
 {
+    ui->postite->setCurrentIndex(indexInserer);
+}
 
+
+void CUIAPostite::on_IDC_RETOURINSERER_clicked()
+{
+    ui->postite->setCurrentIndex(indexMain);
 }
 

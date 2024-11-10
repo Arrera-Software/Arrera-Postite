@@ -91,9 +91,11 @@ private slots:
 
     void on_IDC_ADD_clicked();
 
+    void on_IDC_RETOURINSERER_clicked();
+
 private:
     Ui::CUIAPostite *ui;
-    int indexMain, indexPara ,indexColor,indexView,indexExport ;
+    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer ;
     QString color;
     QSettings *settings;
     QString applyCssToHtml(const QString &htmlContent);
