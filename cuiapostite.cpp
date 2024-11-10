@@ -13,6 +13,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexView = ui->postite->indexOf(ui->view);
     indexExport = ui->postite->indexOf(ui->pageexport);
     indexInserer = ui->postite->indexOf(ui->insersion);
+    indexTableau = ui->postite->indexOf(ui->manageTableau);
     ui->postite->setCurrentIndex(indexMain);
     if (!fileExists("postite.ini"))
     {
@@ -187,6 +188,10 @@ void CUIAPostite::createFile()
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
     settings.setValue("color", "yellow");
+    settings.setValue("lTableau1",5);
+    settings.setValue("lTableau2",5);
+    settings.setValue("cTableau1",3);
+    settings.setValue("cTableau2",10);
     settings.endGroup();
 }
 
@@ -517,7 +522,7 @@ void CUIAPostite::on_IDC_ADDCITATION_clicked()
 void CUIAPostite::on_IDC_ADDLISTEPUCE_clicked()
 {
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("- Texte\n-Texte");
+    curseur.insertText("- Texte\n- Texte");
     ui->ZONETEXTE->setTextCursor(curseur);
     ui->postite->setCurrentIndex(indexMain);
 }
@@ -526,7 +531,7 @@ void CUIAPostite::on_IDC_ADDLISTEPUCE_clicked()
 void CUIAPostite::on_IDC_ADDLISTENUMERO_clicked()
 {
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("1. Texte\n2.Texte");
+    curseur.insertText("1. Texte\n2. Texte");
     ui->ZONETEXTE->setTextCursor(curseur);
     ui->postite->setCurrentIndex(indexMain);
 }
@@ -540,3 +545,178 @@ void CUIAPostite::on_IDC_ADDLIENINTERNET_clicked()
     ui->postite->setCurrentIndex(indexMain);
 }
 
+// Gestion tableau
+
+void CUIAPostite::on_IDC_PARATABLEAU1_clicked()
+{
+    ui->postite->setCurrentIndex(indexTableau);
+    ui->IDC_PARAMETRAGE1->setVisible(true);
+    ui->IDC_PARAMETRAGE2->setVisible(false);
+    ui->IDC_ADDTABLEAU->setVisible(false);
+
+}
+
+void CUIAPostite::on_IDC_PARATABLEAU2_clicked()
+{
+    ui->postite->setCurrentIndex(indexTableau);
+    ui->IDC_PARAMETRAGE1->setVisible(false);
+    ui->IDC_PARAMETRAGE2->setVisible(true);
+    ui->IDC_ADDTABLEAU->setVisible(false);
+}
+
+
+void CUIAPostite::on_IDC_ADDTABLEAU1_clicked()
+{
+    insertTableau(getColone(1),getLigne(1));
+    ui->postite->setCurrentIndex(indexMain);
+    ui->IDC_PARAMETRAGE1->setVisible(true);
+}
+
+
+void CUIAPostite::on_IDC_ADDTABLEAU2_clicked()
+{
+    insertTableau(getColone(2),getLigne(2));
+    ui->postite->setCurrentIndex(indexMain);
+    ui->IDC_PARAMETRAGE1->setVisible(true);
+}
+
+void CUIAPostite::on_TABLEAUAUTRE_clicked()
+{
+    ui->postite->setCurrentIndex(indexTableau);
+    ui->IDC_PARAMETRAGE1->setVisible(false);
+    ui->IDC_PARAMETRAGE2->setVisible(false);
+    ui->IDC_ADDTABLEAU->setVisible(true);
+}
+
+void CUIAPostite::insertTableau(int nbColone, int nbLigne)
+{
+    QString colone1 = "| Titre ";
+    QString colone2 = "|--------";
+    QString sortie;
+    for (int i = 0; i < nbColone; i++) {
+        sortie.append(colone1);
+    }
+    sortie.append("|\n");
+    for (int i = 0; i < nbColone; i++) {
+        sortie.append(colone2);
+    }
+    sortie.append("|\n");
+
+    // Ajout des lignes du tableau
+    for (int j = 0; j < nbLigne; j++) {
+        for (int i = 0; i < nbColone; i++) {
+            sortie.append("| Cellule ");
+        }
+        sortie.append("|\n");
+    }
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText(sortie);
+    ui->ZONETEXTE->setTextCursor(curseur);
+}
+
+
+void CUIAPostite::on_IDC_PARAMETRAGE1_clicked()
+{
+    int nbColone ;
+    int nbLigne ;
+    QString message ;
+    nbColone = ui->IDC_SPINCOLONE->value();
+    nbLigne = ui->IDC_SPINLIGNE->value();
+    message = "Le tableau numero 1 est "
+              "enregistrer avec "+QString::number(nbColone)+
+              " colone et "+QString::number(nbLigne)+" lignes";
+    ui->IDC_SPINCOLONE->setValue(0);
+    ui->IDC_SPINLIGNE->setValue(0);
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    settings.setValue("lTableau1",nbLigne);
+    settings.setValue("cTableau1",nbColone);
+    QMessageBox::information(nullptr,"Information",message);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_PARAMETRAGE2_clicked()
+{
+    int nbColone ;
+    int nbLigne ;
+    QString message ;
+    nbColone = ui->IDC_SPINCOLONE->value();
+    nbLigne = ui->IDC_SPINLIGNE->value();
+    message = "Le tableau numero 1 est "
+              "enregistrer avec "+QString::number(nbColone)+
+              " colone et "+QString::number(nbLigne)+" lignes";
+    ui->IDC_SPINCOLONE->setValue(0);
+    ui->IDC_SPINLIGNE->setValue(0);
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    settings.setValue("lTableau2",nbLigne);
+    settings.setValue("cTableau2",nbColone);
+    QMessageBox::information(nullptr,"Information",message);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDTABLEAU_clicked()
+{
+    int nbColone ;
+    int nbLigne ;
+    nbColone = ui->IDC_SPINCOLONE->value();
+    nbLigne = ui->IDC_SPINLIGNE->value();
+    ui->IDC_SPINCOLONE->setValue(0);
+    ui->IDC_SPINLIGNE->setValue(0);
+    ui->postite->setCurrentIndex(indexMain);
+    insertTableau(nbColone,nbLigne);
+}
+
+void CUIAPostite::on_IDC_CANCELTABLEAU_clicked()
+{
+    ui->postite->setCurrentIndex(indexMain);
+    ui->IDC_SPINCOLONE->setValue(0);
+    ui->IDC_SPINLIGNE->setValue(0);
+}
+
+int CUIAPostite::getColone(int tab)
+{
+    int nb ;
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    //var = settings.value("emplacement").toString();
+
+    switch(tab)
+    {
+        case 1 :
+            nb = settings.value("cTableau1").toInt();
+            break;
+        case 2 :
+            nb = settings.value("cTableau2").toInt();
+            break;
+        default:
+            nb = 1 ;
+            break ;
+    }
+    settings.endGroup();
+    return nb ;
+}
+int CUIAPostite::getLigne(int tab)
+{
+    int nb ;
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    //var = settings.value("emplacement").toString();
+
+    switch(tab)
+    {
+    case 1 :
+        nb = settings.value("lTableau1").toInt();
+        break;
+    case 2 :
+        nb = settings.value("lTableau2").toInt();
+        break;
+    default:
+        nb = 1 ;
+        break ;
+    }
+    settings.endGroup();
+    return nb ;
+}

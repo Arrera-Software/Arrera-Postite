@@ -49,8 +49,6 @@ private slots:
 
     bool emplacementIsSet();
 
-    QString getEmplacement();
-
     void on_IDC_SETCOLOR_clicked();
 
     void on_IDC_RETOURCOLOR_clicked();
@@ -105,11 +103,33 @@ private slots:
 
     void on_IDC_ADDLIENINTERNET_clicked();
 
+    void on_IDC_PARATABLEAU1_clicked();
+
+    void on_IDC_PARATABLEAU2_clicked();
+
+    void on_IDC_ADDTABLEAU1_clicked();
+
+    void on_IDC_ADDTABLEAU2_clicked();
+
+    void on_TABLEAUAUTRE_clicked();
+
+    void on_IDC_PARAMETRAGE1_clicked();
+
+    void on_IDC_PARAMETRAGE2_clicked();
+
+    void on_IDC_ADDTABLEAU_clicked();
+
+    void on_IDC_CANCELTABLEAU_clicked();
+
 private:
     Ui::CUIAPostite *ui;
-    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer ;
+    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer,indexTableau ;
     QString color;
     QSettings *settings;
     QString applyCssToHtml(const QString &htmlContent);
+    void  insertTableau(int nbColone,int nbLigne);
+    QString getEmplacement();
+    int getColone(int tab);
+    int getLigne(int tab);
 };
 #endif // CUIAPOSTITE_H
