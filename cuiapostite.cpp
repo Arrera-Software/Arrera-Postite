@@ -289,7 +289,6 @@ void CUIAPostite::on_IDC_TITRE1_clicked()
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
     curseur.insertText("#");
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
@@ -298,7 +297,6 @@ void CUIAPostite::on_IDC_TITRE2_clicked()
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
     curseur.insertText("##");
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->ZONETEXTE->setTextCursor(curseur);
 }
 
 
@@ -306,7 +304,6 @@ void CUIAPostite::on_IDC_TITRE3_clicked()
 {
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
     curseur.insertText("###");
-    ui->ZONETEXTE->setTextCursor(curseur);
     ui->ZONETEXTE->setTextCursor(curseur);
 }
 
@@ -486,6 +483,60 @@ void CUIAPostite::on_IDC_ADD_clicked()
 
 void CUIAPostite::on_IDC_RETOURINSERER_clicked()
 {
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDCHECKBOX_clicked()
+{
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("- [ ] Texte\n- [ ] Texte");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDLIGNE_clicked()
+{
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("---");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDCITATION_clicked()
+{
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("> Texte");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDLISTEPUCE_clicked()
+{
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("- Texte\n-Texte");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDLISTENUMERO_clicked()
+{
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("1. Texte\n2.Texte");
+    ui->ZONETEXTE->setTextCursor(curseur);
+    ui->postite->setCurrentIndex(indexMain);
+}
+
+
+void CUIAPostite::on_IDC_ADDLIENINTERNET_clicked()
+{
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText("[Texte du lien](URL_du_lien)");
+    ui->ZONETEXTE->setTextCursor(curseur);
     ui->postite->setCurrentIndex(indexMain);
 }
 

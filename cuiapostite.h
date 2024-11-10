@@ -93,6 +93,18 @@ private slots:
 
     void on_IDC_RETOURINSERER_clicked();
 
+    void on_IDC_ADDCHECKBOX_clicked();
+
+    void on_IDC_ADDLIGNE_clicked();
+
+    void on_IDC_ADDCITATION_clicked();
+
+    void on_IDC_ADDLISTEPUCE_clicked();
+
+    void on_IDC_ADDLISTENUMERO_clicked();
+
+    void on_IDC_ADDLIENINTERNET_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer ;
