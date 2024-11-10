@@ -273,10 +273,17 @@ bool CUIAPostite::setColor(QString color)
 
 void CUIAPostite::on_IDC_VIEW_clicked()
 {
+    /*
     QString content = converseMD();
     ui->VIEWFILEMAKEDOWN->setReadOnly(false);
     ui->VIEWFILEMAKEDOWN->clear();
     ui->VIEWFILEMAKEDOWN->setHtml(content);
+    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
+    ui->postite->setCurrentIndex(indexView);
+    */
+    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     ui->postite->setCurrentIndex(indexView);
 }
@@ -380,7 +387,12 @@ void CUIAPostite::on_IDC_RETOUREXPORT_clicked()
 
 void CUIAPostite::on_IDC_PRINTPDF_clicked()
 {
-    QString htmlContent = converseMD();
+    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
+    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
+
+    QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
 
     // 2. Appliquer un style CSS pour l'impression
     QString styledHtml = applyCssToHtml(htmlContent);
@@ -458,6 +470,29 @@ QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
             h1, h2, h3 { color: #333; }
             p { color: #555; line-height: 1.6; }
             code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
+
+            /* Style pour les tableaux */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            th, td {
+                padding: 12px;
+                border: 5px solid black;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+                color: #333;
+                font-weight: bold;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #e6f7ff;
+            }
         </style>
     )";
     return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";

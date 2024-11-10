@@ -12,6 +12,7 @@
 #include <QPrinter>
 #include <QTextBrowser>
 #include <QPrintDialog>
+#include <QTextDocument>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
