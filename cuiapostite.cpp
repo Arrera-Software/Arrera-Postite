@@ -733,8 +733,14 @@ int CUIAPostite::getLigne(int tab)
 void CUIAPostite::setViewFolder()
 {
     model->setRootPath(getEmplacement());
+    model->setNameFilters(QStringList() << "*.ab");
+    model->setNameFilterDisables(false);
+    model->setFilter(QDir::Files | QDir::AllDirs | QDir::NoDotAndDotDot);
     ui->IDC_VIEWFILE->setModel(model);
     ui->IDC_VIEWFILE->setRootIndex(model->index(getEmplacement()));
+    ui->IDC_VIEWFILE->hideColumn(1);
+    ui->IDC_VIEWFILE->hideColumn(2);
+    ui->IDC_VIEWFILE->hideColumn(3);
 }
 
 void CUIAPostite::openFileTreeView(const QModelIndex &index)
