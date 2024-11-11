@@ -31,11 +31,13 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         if (getEmplacement() == "null")
         {
             ui->postite->setCurrentIndex(indexMain);
+            ui->IDC_OPEN->setVisible(true);
         }
         else
         {
             setViewFolder();
             ui->postite->setCurrentIndex(indexAcceuil);
+            ui->IDC_OPEN->setVisible(false);
         }
     }
 }
@@ -132,7 +134,14 @@ void CUIAPostite::on_IDC_PARA_clicked()
 
 void CUIAPostite::on_IDC_QUIT_clicked()
 {
-    close();
+    if (getEmplacement() == "null")
+    {
+       close();
+    }
+    else
+    {
+        ui->postite->setCurrentIndex(indexAcceuil);
+    }
 }
 
 
@@ -145,12 +154,6 @@ void CUIAPostite::on_IDC_OPEN_clicked()
         nomFichier = QFileDialog::getOpenFileName(this,
                                                   "Choisir un fichier à ouvrir",
                                                   QDir::homePath(), "Fichier Pense-bete (*.ab)");
-    }
-    else
-    {
-        nomFichier = QFileDialog::getOpenFileName(this,
-                                                  "Choisir un fichier à ouvrir",
-                                                  getEmplacement(), "Fichier Pense-bete (*.ab)");
     }
     QFile fichier(nomFichier);
     if (fichier.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -777,5 +780,53 @@ void CUIAPostite::on_IDC_PARAMETREACCEUIL_clicked()
 void CUIAPostite::on_IDC_RETOURACCEUIL_clicked()
 {
     ui->postite->setCurrentIndex(indexAcceuil);
+}
+
+void CUIAPostite::on_IDC_QUITACCEUIL_clicked()
+{
+    close();
+}
+
+
+void CUIAPostite::on_IDC_OPENOTHER_clicked()
+{
+    on_IDC_OPEN_clicked();
+}
+
+
+void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
+{
+    bool ok;
+    QString nom = "" , nomFichier = getEmplacement()+"/";
+    ui->ZONETEXTE->clear();
+    ui->postite->setCurrentIndex(indexMain);
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Sauvergarder", "Voulez-vous sauvegarder ce postite",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        while (nom == "")
+        {
+            nom= QInputDialog::getText(this, "Nom du fichier",
+                                             "Veuillez entrer le nom du postite :",
+                                        QLineEdit::Normal, "", &ok);
+        }
+        nomFichier += nom;
+        if (!nomFichier.endsWith(".ab", Qt::CaseInsensitive)) {
+            nomFichier += ".ab";
+        }
+
+        QFile file(nomFichier);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&file);
+            QString contenuTextEdit = "";
+            out << contenuTextEdit ;
+        }
+    }
+    else
+    {
+        QMessageBox::information(nullptr,"Information","Le postite ne sera pas enregistrer");
+    }
 }
 

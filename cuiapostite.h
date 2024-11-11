@@ -14,6 +14,7 @@
 #include <QPrintDialog>
 #include <QTextDocument>
 #include <QFileSystemModel>
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -138,5 +139,8 @@ private slots:
     void openFileTreeView(const QModelIndex &index);
     void on_IDC_PARAMETREACCEUIL_clicked();
     void on_IDC_RETOURACCEUIL_clicked();
+    void on_IDC_QUITACCEUIL_clicked();
+    void on_IDC_OPENOTHER_clicked();
+    void on_IDC_ADDFILEACCEUIL_clicked();
 };
 #endif // CUIAPOSTITE_H
