@@ -125,6 +125,8 @@ void CUIAPostite::on_IDC_NEW_clicked()
 void CUIAPostite::on_IDC_PARA_clicked()
 {
     ui->postite->setCurrentIndex(indexPara);
+    ui->IDC_RETOUR->setVisible(true);
+    ui->IDC_RETOURACCEUIL->setVisible(false);
 }
 
 
@@ -763,3 +765,17 @@ void CUIAPostite::openFileTreeView(const QModelIndex &index)
         ui->postite->setCurrentIndex(indexMain);
     }
 }
+
+void CUIAPostite::on_IDC_PARAMETREACCEUIL_clicked()
+{
+    ui->postite->setCurrentIndex(indexPara);
+    ui->IDC_RETOUR->setVisible(false);
+    ui->IDC_RETOURACCEUIL->setVisible(true);
+}
+
+
+void CUIAPostite::on_IDC_RETOURACCEUIL_clicked()
+{
+    ui->postite->setCurrentIndex(indexAcceuil);
+}
+

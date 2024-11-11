@@ -136,5 +136,7 @@ private:
     void setViewFolder();
 private slots:
     void openFileTreeView(const QModelIndex &index);
+    void on_IDC_PARAMETREACCEUIL_clicked();
+    void on_IDC_RETOURACCEUIL_clicked();
 };
 #endif // CUIAPOSTITE_H
