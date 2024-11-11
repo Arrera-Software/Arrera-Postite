@@ -7,6 +7,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite)
 {
     ui->setupUi(this);
+    model = new QFileSystemModel(this);
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
     indexColor = ui->postite->indexOf(ui->colorSelect);
@@ -14,10 +15,12 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexExport = ui->postite->indexOf(ui->pageexport);
     indexInserer = ui->postite->indexOf(ui->insersion);
     indexTableau = ui->postite->indexOf(ui->manageTableau);
-    ui->postite->setCurrentIndex(indexMain);
+    indexAcceuil = ui->postite->indexOf(ui->pageFile);
+    connect(ui->IDC_VIEWFILE, &QTreeView::doubleClicked, this, &CUIAPostite::openFileTreeView);
     if (!fileExists("postite.ini"))
     {
         createFile();
+        ui->postite->setCurrentIndex(indexMain);
     }
     else
     {
@@ -25,6 +28,15 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         settings.beginGroup("postite");
         color = settings.value("color").toString();
         setColor(color);
+        if (getEmplacement() == "null")
+        {
+            ui->postite->setCurrentIndex(indexMain);
+        }
+        else
+        {
+            setViewFolder();
+            ui->postite->setCurrentIndex(indexAcceuil);
+        }
     }
 }
 
@@ -681,8 +693,6 @@ int CUIAPostite::getColone(int tab)
     int nb ;
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
-    //var = settings.value("emplacement").toString();
-
     switch(tab)
     {
         case 1 :
@@ -703,8 +713,6 @@ int CUIAPostite::getLigne(int tab)
     int nb ;
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
-    //var = settings.value("emplacement").toString();
-
     switch(tab)
     {
     case 1 :
@@ -719,4 +727,33 @@ int CUIAPostite::getLigne(int tab)
     }
     settings.endGroup();
     return nb ;
+}
+
+
+void CUIAPostite::setViewFolder()
+{
+    model->setRootPath(getEmplacement());
+    ui->IDC_VIEWFILE->setModel(model);
+    ui->IDC_VIEWFILE->setRootIndex(model->index(getEmplacement()));
+}
+
+void CUIAPostite::openFileTreeView(const QModelIndex &index)
+{
+    QString contenu;
+    if (model->isDir(index)) {
+        return;
+    }
+    QString filePath = model->filePath(index);
+    if (filePath.endsWith(".ab"))
+    {
+        QFile fichier(filePath);
+        if (fichier.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QTextStream in(&fichier);
+            contenu = in.readAll();
+            fichier.close();
+            ui->ZONETEXTE->setPlainText(contenu);
+        }
+        ui->postite->setCurrentIndex(indexMain);
+    }
 }

@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -373,6 +373,87 @@
              </item>
             </layout>
            </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageFile">
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Arrera Postite</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QTreeView" name="IDC_VIEWFILE"/>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <widget class="QPushButton" name="IDC_FOLDER">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="postitesrc.qrc">
+                <normaloff>:/img/folder.png</normaloff>:/img/folder.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="IDC_PARAMETREACCEUIL">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="postitesrc.qrc">
+                <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="IDC_QUITACCEUIL">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="postitesrc.qrc">
+                <normaloff>:/img/quit.png</normaloff>:/img/quit.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

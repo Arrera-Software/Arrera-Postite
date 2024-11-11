@@ -13,6 +13,7 @@
 #include <QTextBrowser>
 #include <QPrintDialog>
 #include <QTextDocument>
+#include <QFileSystemModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -123,7 +124,8 @@ private slots:
 
 private:
     Ui::CUIAPostite *ui;
-    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer,indexTableau ;
+    QFileSystemModel *model;
+    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer,indexTableau,indexAcceuil ;
     QString color;
     QSettings *settings;
     QString applyCssToHtml(const QString &htmlContent);
@@ -131,5 +133,8 @@ private:
     QString getEmplacement();
     int getColone(int tab);
     int getLigne(int tab);
+    void setViewFolder();
+private slots:
+    void openFileTreeView(const QModelIndex &index);
 };
 #endif // CUIAPOSTITE_H
