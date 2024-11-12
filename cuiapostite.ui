@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1036,7 +1036,7 @@
             </property>
             <property name="icon">
              <iconset resource="postitesrc.qrc">
-              <normaloff>:/img/listeNumeroté.png</normaloff>:/img/listeNumeroté.png</iconset>
+              <normaloff>:/img/listeNumerote.png</normaloff>:/img/listeNumerote.png</iconset>
             </property>
             <property name="iconSize">
              <size>

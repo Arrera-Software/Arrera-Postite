@@ -16,11 +16,11 @@
         <file>citation.png</file>
         <file>lien.png</file>
         <file>ligne.png</file>
-        <file>listeNumeroté.png</file>
         <file>listePuce.png</file>
         <file>tableau1.png</file>
         <file>tableau2.png</file>
         <file>tableauautre.png</file>
         <file>folder.png</file>
+        <file>listeNumerote.png</file>
     </qresource>
 </RCC>
