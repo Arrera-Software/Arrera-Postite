@@ -194,6 +194,7 @@ void CUIAPostite::on_IDC_SETEMPLACEMENT_clicked()
         settings.endGroup();
         QMessageBox::information(this,"Arrera Postite","Dossier enregistrer");
     }
+    setViewFolder();
 }
 
 bool CUIAPostite::fileExists(const QString &filePath)
