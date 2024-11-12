@@ -278,12 +278,12 @@ bool CUIAPostite::setColor(QString color)
 {
     if (color == "yellow")
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192)");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: black;");
         return true;
     }
     else if (color == "white")
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255)");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return true;
     } else if (color == "black")
     {
@@ -291,7 +291,7 @@ bool CUIAPostite::setColor(QString color)
         return true;
     } else
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192)");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: white;");
         return false;
     }
 }
