@@ -127,7 +127,7 @@ private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
     int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer,indexTableau,indexAcceuil ;
-    QString color;
+    QString color,nameFile;
     QSettings *settings;
     QString applyCssToHtml(const QString &htmlContent);
     void  insertTableau(int nbColone,int nbLigne);
@@ -142,5 +142,6 @@ private slots:
     void on_IDC_QUITACCEUIL_clicked();
     void on_IDC_OPENOTHER_clicked();
     void on_IDC_ADDFILEACCEUIL_clicked();
+    void onTextChanged();
 };
 #endif // CUIAPOSTITE_H

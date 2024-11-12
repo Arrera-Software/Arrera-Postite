@@ -17,6 +17,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexTableau = ui->postite->indexOf(ui->manageTableau);
     indexAcceuil = ui->postite->indexOf(ui->pageFile);
     connect(ui->IDC_VIEWFILE, &QTreeView::doubleClicked, this, &CUIAPostite::openFileTreeView);
+    connect(ui->ZONETEXTE, &MyTextEdit::textChanged, this, &CUIAPostite::onTextChanged);
+    nameFile = "";
     if (!fileExists("postite.ini"))
     {
         createFile();
@@ -81,6 +83,7 @@ void CUIAPostite::on_IDC_SAVE_clicked()
             ui->ZONETEXTE->clear();
         }
         file.close();
+        nameFile = nomFichier;
     }
 }
 
@@ -162,6 +165,7 @@ void CUIAPostite::on_IDC_OPEN_clicked()
         contenu = in.readAll();
         fichier.close();
         ui->ZONETEXTE->setPlainText(contenu);
+        nameFile = nomFichier;
     }
 }
 
@@ -755,6 +759,7 @@ void CUIAPostite::openFileTreeView(const QModelIndex &index)
         return;
     }
     QString filePath = model->filePath(index);
+    nameFile = filePath;
     if (filePath.endsWith(".ab"))
     {
         QFile fichier(filePath);
@@ -823,6 +828,7 @@ void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
             QString contenuTextEdit = "";
             out << contenuTextEdit ;
         }
+        nameFile = nomFichier;
     }
     else
     {
@@ -830,3 +836,17 @@ void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
     }
 }
 
+void CUIAPostite::onTextChanged()
+{
+    if (nameFile.isEmpty() == false)
+    {
+        QString contenu = ui->ZONETEXTE->toPlainText();
+
+        QFile file(nameFile);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&file);
+            out << contenu ;
+        }
+    }
+}
