@@ -27,8 +27,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     postitesrc.qrc
-
-unix:!macx: LIBS += -L$$PWD/../../../../../usr/lib64/ -lcmark
-
-INCLUDEPATH += $$PWD/../../../../../usr/lib64
-DEPENDPATH += $$PWD/../../../../../usr/lib64
