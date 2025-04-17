@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -216,8 +216,7 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(255, 255, 192);
-color : black;</string>
+             <string notr="true"/>
             </property>
            </widget>
           </item>

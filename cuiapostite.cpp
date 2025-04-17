@@ -18,6 +18,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     connect(ui->IDC_VIEWFILE, &QTreeView::doubleClicked, this, &CUIAPostite::openFileTreeView);
     connect(ui->ZONETEXTE, &MyTextEdit::textChanged, this, &CUIAPostite::onTextChanged);
     nameFile = "";
+    ui->IDC_YELLOW->setVisible(false);
     if (!fileExists("postite.ini"))
     {
         createFile();
@@ -208,7 +209,7 @@ void CUIAPostite::createFile()
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
-    settings.setValue("color", "yellow");
+    settings.setValue("color", "white");
     settings.setValue("lTableau1",5);
     settings.setValue("lTableau2",5);
     settings.setValue("cTableau1",3);
@@ -277,12 +278,7 @@ void CUIAPostite::on_IDC_BLACK_clicked()
 
 bool CUIAPostite::setColor(QString color)
 {
-    if (color == "yellow")
-    {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: black;");
-        return true;
-    }
-    else if (color == "white")
+    if (color == "white")
     {
         ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return true;
@@ -292,7 +288,7 @@ bool CUIAPostite::setColor(QString color)
         return true;
     } else
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: white;");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return false;
     }
 }
