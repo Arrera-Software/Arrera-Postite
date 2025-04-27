@@ -27,7 +27,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         QSettings settings("postite.ini", QSettings::IniFormat);
         settings.beginGroup("postite");
         color = settings.value("color").toString();
-        setColor(color);
+        setColor();
         if (getEmplacement() == "null")
         {
             ui->postite->setCurrentIndex(indexMain);
@@ -40,6 +40,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
             ui->IDC_OPEN->setVisible(false);
         }
     }
+
+    //ui->IDC_SETCOLOR->setVisible(false);
 }
 
 CUIAPostite::~CUIAPostite()
@@ -129,7 +131,6 @@ void CUIAPostite::on_IDC_PARA_clicked()
 {
     ui->postite->setCurrentIndex(indexPara);
     ui->IDC_RETOUR->setVisible(true);
-    ui->IDC_RETOURACCEUIL->setVisible(false);
 }
 
 
@@ -207,7 +208,7 @@ void CUIAPostite::createFile()
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
-    settings.setValue("color", "yellow");
+    settings.setValue("color", "white");
     settings.setValue("lTableau1",5);
     settings.setValue("lTableau2",5);
     settings.setValue("cTableau1",3);
@@ -232,82 +233,44 @@ QString CUIAPostite::getEmplacement()
 
 void CUIAPostite::on_IDC_SETCOLOR_clicked()
 {
-    ui->postite->setCurrentIndex(indexColor);
-}
-
-
-void CUIAPostite::on_IDC_RETOURCOLOR_clicked()
-{
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
-void CUIAPostite::on_IDC_YELLOW_clicked()
-{
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
-    settings.setValue("color", "yellow");
-    setColor("yellow");
-    settings.endGroup();
-    ui->postite->setCurrentIndex(indexMain);
-}
+    color = settings.value("color").toString();
 
-
-void CUIAPostite::on_IDC_WHITE_clicked()
-{
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("color", "white");
-    setColor("white");
-    settings.endGroup();
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
-void CUIAPostite::on_IDC_BLACK_clicked()
-{
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("color", "black");
-    setColor("black");
-    settings.endGroup();
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-bool CUIAPostite::setColor(QString color)
-{
-    if (color == "yellow")
-    {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: black;");
-        return true;
+    if (color == "white"){
+        settings.setValue("color", "black");
+        color = "black";
+        setColor();
+    }else{
+        settings.setValue("color", "white");
+        color = "white";
+        setColor();
     }
-    else if (color == "white")
+
+    settings.endGroup();
+    ui->postite->setCurrentIndex(indexMain);
+    onTextChanged();
+}
+
+bool CUIAPostite::setColor()
+{
+    if (color == "white")
     {
         ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
+        ui->VIEWFILEMAKEDOWN->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return true;
     } else if (color == "black")
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(0, 0, 0)");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(0, 0, 0); color: white");
+        ui->VIEWFILEMAKEDOWN->setStyleSheet("background-color: rgb(0, 0, 0); color: white");
         return true;
     } else
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: white;");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
+        ui->VIEWFILEMAKEDOWN->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return false;
     }
 }
-
-/*
-void CUIAPostite::on_IDC_VIEW_clicked()
-{
-    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
-    QString styledHtml = applyCssToHtml(ui->VIEWFILEMAKEDOWN->toHtml());
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
-    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
-    ui->postite->setCurrentIndex(indexView);
-}*/
 
 void CUIAPostite::on_IDC_TITRE1_clicked()
 {
@@ -387,7 +350,7 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
     QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
 
     // 2. Appliquer un style CSS pour l'impression
-    QString styledHtml = applyCssToHtml(htmlContent);
+    QString styledHtml = applyCssToHtmlWhite(htmlContent);
 
     // 3. Créer une instance de QPrinter en mode PDF
     QPrinter printer(QPrinter::HighResolution);
@@ -446,7 +409,7 @@ void CUIAPostite::on_IDC_PRINT_clicked()
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
-    QString styledHtml = applyCssToHtml(htmlContent);
+    QString styledHtml = applyCssToHtmlWhite(htmlContent);
     QTextBrowser *browser = new QTextBrowser();
     browser->setHtml(styledHtml);
     QPrinter printer(QPrinter::HighResolution);
@@ -459,12 +422,12 @@ void CUIAPostite::on_IDC_PRINT_clicked()
 }
 
 
-QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
+QString CUIAPostite::applyCssToHtmlWhite(const QString &htmlContent) {
     QString css = R"(
         <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
-            h1, h2, h3 { color: #333; }
-            p { color: #555; line-height: 1.6; }
+            h1, h2, h3 { color: #000000; }
+            p { color: #0d0d0d; line-height: 1.6; }
             code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
 
             /* Style pour les tableaux */
@@ -487,7 +450,42 @@ QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
                 background-color: #f9f9f9;
             }
             tr:hover {
-                background-color: #e6f7ff;
+                background-color: #f9f9f9;
+            }
+        </style>
+    )";
+    return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";
+}
+
+QString CUIAPostite::applyCssToHtmlBlack(const QString &htmlContent) {
+    QString css = R"(
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1, h2, h3 { color: #ffffff; }
+            p { color: #f2f2f2; line-height: 1.6; }
+            code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
+
+            /* Style pour les tableaux */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            th, td {
+                padding: 12px;
+                border: 5px solid white;
+                text-align: left;
+            }
+            th {
+                background-color: #0d0d0d;
+                color: #333;
+                font-weight: bold;
+            }
+            tr:nth-child(even) {
+                background-color: #1a1a1a;
+            }
+            tr:hover {
+                background-color: #00344d;
             }
         </style>
     )";
@@ -772,13 +770,6 @@ void CUIAPostite::on_IDC_PARAMETREACCEUIL_clicked()
 {
     ui->postite->setCurrentIndex(indexPara);
     ui->IDC_RETOUR->setVisible(false);
-    ui->IDC_RETOURACCEUIL->setVisible(true);
-}
-
-
-void CUIAPostite::on_IDC_RETOURACCEUIL_clicked()
-{
-    ui->postite->setCurrentIndex(indexAcceuil);
 }
 
 void CUIAPostite::on_IDC_QUITACCEUIL_clicked()
@@ -832,6 +823,7 @@ void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
 
 void CUIAPostite::onTextChanged()
 {
+    QString styledHtml;
     if (nameFile.isEmpty() == false)
     {
         QString contenu = ui->ZONETEXTE->toPlainText();
@@ -847,7 +839,11 @@ void CUIAPostite::onTextChanged()
     ui->VIEWFILEMAKEDOWN->setReadOnly(false);
     ui->VIEWFILEMAKEDOWN->clear();
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
-    QString styledHtml = applyCssToHtml(ui->VIEWFILEMAKEDOWN->toHtml());
+    if (color == "white"){
+        styledHtml = applyCssToHtmlWhite(ui->VIEWFILEMAKEDOWN->toHtml());
+    }else{
+        styledHtml = applyCssToHtmlBlack(ui->VIEWFILEMAKEDOWN->toHtml());
+    }
     ui->VIEWFILEMAKEDOWN->clear();
     ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);

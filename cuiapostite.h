@@ -53,17 +53,7 @@ private slots:
 
     void on_IDC_SETCOLOR_clicked();
 
-    void on_IDC_RETOURCOLOR_clicked();
-
-    void on_IDC_YELLOW_clicked();
-
-    void on_IDC_WHITE_clicked();
-
-    void on_IDC_BLACK_clicked();
-
-    bool setColor(QString color);
-
-    // void on_IDC_VIEW_clicked();
+    bool setColor();
 
     void on_IDC_TITRE1_clicked();
 
@@ -127,7 +117,8 @@ private:
     int indexMain, indexPara ,indexColor,indexExport,indexInserer,indexTableau,indexAcceuil ;
     QString color,nameFile;
     QSettings *settings;
-    QString applyCssToHtml(const QString &htmlContent);
+    QString applyCssToHtmlWhite(const QString &htmlContent);
+    QString applyCssToHtmlBlack(const QString &htmlContent);
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);
@@ -136,7 +127,6 @@ private:
 private slots:
     void openFileTreeView(const QModelIndex &index);
     void on_IDC_PARAMETREACCEUIL_clicked();
-    void on_IDC_RETOURACCEUIL_clicked();
     void on_IDC_QUITACCEUIL_clicked();
     void on_IDC_OPENOTHER_clicked();
     void on_IDC_ADDFILEACCEUIL_clicked();
