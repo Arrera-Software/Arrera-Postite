@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -216,166 +216,151 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(255, 255, 192);
-color : black;</string>
+             <string notr="true"/>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="frame">
-            <property name="minimumSize">
-             <size>
-              <width>31</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Shape::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Shadow::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
-             <item>
-              <widget class="QPushButton" name="IDC_ADD">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/inserer.png</normaloff>:/img/inserer.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_SAVE">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/save.png</normaloff>:/img/save.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_NEW">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/new.png</normaloff>:/img/new.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_OPEN">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/open.png</normaloff>:/img/open.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_VIEW">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/viewxcf.png</normaloff>:/img/viewxcf.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_EXPORT">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/export.png</normaloff>:/img/export.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_PARA">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="IDC_QUIT">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="postitesrc.qrc">
-                 <normaloff>:/img/quit.png</normaloff>:/img/quit.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
+           <widget class="QTextBrowser" name="VIEWFILEMAKEDOWN"/>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="minimumSize">
+           <size>
+            <width>31</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Shadow::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QPushButton" name="IDC_EXPORT">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/export.png</normaloff>:/img/export.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="IDC_OPEN">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/open.png</normaloff>:/img/open.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="IDC_NEW">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/new.png</normaloff>:/img/new.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="IDC_SAVE">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/save.png</normaloff>:/img/save.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="IDC_ADD">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/inserer.png</normaloff>:/img/inserer.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="IDC_PARA">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/parametre.png</normaloff>:/img/parametre.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="IDC_QUIT">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="postitesrc.qrc">
+               <normaloff>:/img/quit.png</normaloff>:/img/quit.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -695,23 +680,7 @@ color : black;</string>
        </layout>
       </widget>
       <widget class="QWidget" name="view">
-       <layout class="QVBoxLayout" name="verticalLayout_7">
-        <item>
-         <widget class="QTextBrowser" name="VIEWFILEMAKEDOWN"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="IDC_RETOUREDITEUR">
-          <property name="font">
-           <font>
-            <pointsize>15</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Retour a l'editeur</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QVBoxLayout" name="verticalLayout_7"/>
       </widget>
       <widget class="QWidget" name="manageTableau">
        <layout class="QVBoxLayout" name="verticalLayout_10">

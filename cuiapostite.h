@@ -63,7 +63,7 @@ private slots:
 
     bool setColor(QString color);
 
-    void on_IDC_VIEW_clicked();
+    // void on_IDC_VIEW_clicked();
 
     void on_IDC_TITRE1_clicked();
 
@@ -76,8 +76,6 @@ private slots:
     void on_IDC_ITALIQUE_clicked();
 
     void on_IDC_BARRE_clicked();
-
-    void on_IDC_RETOUREDITEUR_clicked();
 
     void on_IDC_EXPORT_clicked();
 
@@ -126,7 +124,7 @@ private slots:
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
-    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer,indexTableau,indexAcceuil ;
+    int indexMain, indexPara ,indexColor,indexExport,indexInserer,indexTableau,indexAcceuil ;
     QString color,nameFile;
     QSettings *settings;
     QString applyCssToHtml(const QString &htmlContent);

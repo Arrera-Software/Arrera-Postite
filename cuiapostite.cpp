@@ -10,7 +10,6 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
     indexColor = ui->postite->indexOf(ui->colorSelect);
-    indexView = ui->postite->indexOf(ui->view);
     indexExport = ui->postite->indexOf(ui->pageexport);
     indexInserer = ui->postite->indexOf(ui->insersion);
     indexTableau = ui->postite->indexOf(ui->manageTableau);
@@ -297,7 +296,7 @@ bool CUIAPostite::setColor(QString color)
     }
 }
 
-
+/*
 void CUIAPostite::on_IDC_VIEW_clicked()
 {
     ui->VIEWFILEMAKEDOWN->setReadOnly(false);
@@ -308,7 +307,7 @@ void CUIAPostite::on_IDC_VIEW_clicked()
     ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     ui->postite->setCurrentIndex(indexView);
-}
+}*/
 
 void CUIAPostite::on_IDC_TITRE1_clicked()
 {
@@ -364,11 +363,6 @@ void CUIAPostite::on_IDC_BARRE_clicked()
     int positionMilieu = curseur.position() - texteAInserer.length() / 2;
     curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-}
-
-void CUIAPostite::on_IDC_RETOUREDITEUR_clicked()
-{
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 void CUIAPostite::on_IDC_EXPORT_clicked()
@@ -849,4 +843,12 @@ void CUIAPostite::onTextChanged()
             out << contenu ;
         }
     }
+
+    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
+    QString styledHtml = applyCssToHtml(ui->VIEWFILEMAKEDOWN->toHtml());
+    ui->VIEWFILEMAKEDOWN->clear();
+    ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
+    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
 }
