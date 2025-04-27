@@ -67,19 +67,11 @@ private slots:
 
     void on_IDC_BARRE_clicked();
 
-    void on_IDC_EXPORT_clicked();
-
-    void on_IDC_RETOUREXPORT_clicked();
-
     void on_IDC_PRINTPDF_clicked();
 
     void on_IDC_PRINDMD_clicked();
 
     void on_IDC_PRINT_clicked();
-
-    void on_IDC_ADD_clicked();
-
-    void on_IDC_RETOURINSERER_clicked();
 
     void on_IDC_ADDCHECKBOX_clicked();
 
@@ -93,20 +85,6 @@ private slots:
 
     void on_IDC_ADDLIENINTERNET_clicked();
 
-    void on_IDC_PARATABLEAU1_clicked();
-
-    void on_IDC_PARATABLEAU2_clicked();
-
-    void on_IDC_ADDTABLEAU1_clicked();
-
-    void on_IDC_ADDTABLEAU2_clicked();
-
-    void on_TABLEAUAUTRE_clicked();
-
-    void on_IDC_PARAMETRAGE1_clicked();
-
-    void on_IDC_PARAMETRAGE2_clicked();
-
     void on_IDC_ADDTABLEAU_clicked();
 
     void on_IDC_CANCELTABLEAU_clicked();
@@ -114,7 +92,7 @@ private slots:
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
-    int indexMain, indexPara ,indexColor,indexExport,indexInserer,indexTableau,indexAcceuil ;
+    int indexMain, indexPara ,indexColor,indexExport,indexInserer,indexAcceuil ;
     QString color,nameFile;
     QSettings *settings;
     QString applyCssToHtmlWhite(const QString &htmlContent);
@@ -131,5 +109,9 @@ private slots:
     void on_IDC_OPENOTHER_clicked();
     void on_IDC_ADDFILEACCEUIL_clicked();
     void onTextChanged();
+    void on_IDC_3X3_clicked();
+    void on_IDC_6X6_clicked();
+    void on_IDC_10X10_clicked();
+    void on_IDC_OTHER_clicked();
 };
 #endif // CUIAPOSTITE_H
