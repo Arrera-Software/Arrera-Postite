@@ -92,7 +92,8 @@ private slots:
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
-    int indexMain, indexPara ,indexColor,indexExport,indexInserer,indexAcceuil ;
+    int indexMain, indexPara,indexTableau,indexAcceuil ;
+    int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
     QSettings *settings;
     QString applyCssToHtmlWhite(const QString &htmlContent);

@@ -9,13 +9,22 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     model = new QFileSystemModel(this);
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
-    indexColor = ui->postite->indexOf(ui->colorSelect);
-    indexExport = ui->postite->indexOf(ui->pageexport);
-    indexInserer = ui->postite->indexOf(ui->manageTableau);
+    indexTableau = ui->postite->indexOf(ui->manageTableau);
     indexAcceuil = ui->postite->indexOf(ui->pageFile);
+
+    // Index
+    indexOngletFichier = ui->tabonsere->indexOf(ui->Fichier);
+    indexOngletTexte = ui->tabonsere->indexOf(ui->texte);
+    indexOngletTableau = ui->tabonsere->indexOf(ui->tableau);
+    indexOngletInserer = ui->tabonsere->indexOf(ui->inserer);
+    indexOngletExport = ui->tabonsere->indexOf(ui->exportPage);
+
     connect(ui->IDC_VIEWFILE, &QTreeView::doubleClicked, this, &CUIAPostite::openFileTreeView);
     connect(ui->ZONETEXTE, &MyTextEdit::textChanged, this, &CUIAPostite::onTextChanged);
     nameFile = "";
+
+    ui->tabonsere->setCurrentIndex(indexOngletFichier);
+
     if (!fileExists("postite.ini"))
     {
         createFile();
@@ -405,7 +414,7 @@ QString CUIAPostite::applyCssToHtmlWhite(const QString &htmlContent) {
         <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             h1, h2, h3 { color: #000000; }
-            p { color: #0d0d0d; line-height: 1.6; }
+            p { color: #0d0d0d; line-height: 1.6}
             code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
 
             /* Style pour les tableaux */
@@ -603,6 +612,7 @@ void CUIAPostite::openFileTreeView(const QModelIndex &index)
             ui->ZONETEXTE->setPlainText(contenu);
         }
         ui->postite->setCurrentIndex(indexMain);
+        ui->tabonsere->setCurrentIndex(indexOngletFichier);
     }
 }
 
@@ -714,5 +724,5 @@ void CUIAPostite::on_IDC_OTHER_clicked()
 {
     ui->IDC_SPINCOLONE->setValue(0);
     ui->IDC_SPINLIGNE->setValue(0);
-    ui->postite->setCurrentIndex(indexInserer);
+    ui->postite->setCurrentIndex(indexTableau);
 }

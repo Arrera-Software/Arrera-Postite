@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -774,13 +774,13 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_12">
             <item>
-             <widget class="QPushButton" name="IDC_OPENOTHER">
+             <widget class="QPushButton" name="IDC_ADDFILEACCEUIL">
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset resource="postitesrc.qrc">
-                <normaloff>:/img/open.png</normaloff>:/img/open.png</iconset>
+                <normaloff>:/img/new.png</normaloff>:/img/new.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -791,13 +791,13 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="IDC_ADDFILEACCEUIL">
+             <widget class="QPushButton" name="IDC_OPENOTHER">
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset resource="postitesrc.qrc">
-                <normaloff>:/img/new.png</normaloff>:/img/new.png</iconset>
+                <normaloff>:/img/open.png</normaloff>:/img/open.png</iconset>
               </property>
               <property name="iconSize">
                <size>
