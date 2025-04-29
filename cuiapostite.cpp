@@ -688,7 +688,13 @@ void CUIAPostite::onTextChanged()
 
     ui->VIEWFILEMAKEDOWN->setReadOnly(false);
     ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
+
+
+    QString markdownText = ui->ZONETEXTE->toPlainText();
+    QTextDocument* document = ui->VIEWFILEMAKEDOWN->document();
+    document->setMarkdown(markdownText,QTextDocument::MarkdownDialectGitHub);
+
+    /*
     if (color == "white"){
         styledHtml = applyCssToHtmlWhite(ui->VIEWFILEMAKEDOWN->toHtml());
     }else{
@@ -696,6 +702,7 @@ void CUIAPostite::onTextChanged()
     }
     ui->VIEWFILEMAKEDOWN->clear();
     ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
+    */
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
 }
 
