@@ -23,4 +23,8 @@
         <file>folder.png</file>
         <file>listeNumerote.png</file>
     </qresource>
+    <qresource prefix="/css">
+        <file>css-markdonw/github-markdown-dark.css</file>
+        <file>css-markdonw/github-markdown-light.css</file>
+    </qresource>
 </RCC>

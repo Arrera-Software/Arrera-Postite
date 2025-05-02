@@ -410,73 +410,29 @@ void CUIAPostite::on_IDC_PRINT_clicked()
 
 
 QString CUIAPostite::applyCssToHtmlWhite(const QString &htmlContent) {
-    QString css = R"(
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            h1, h2, h3 { color: #000000; }
-            p { color: #0d0d0d; line-height: 1.6}
-            code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
-
-            /* Style pour les tableaux */
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-            }
-            th, td {
-                padding: 12px;
-                border: 5px solid black;
-                text-align: left;
-            }
-            th {
-                background-color: #f2f2f2;
-                color: #333;
-                font-weight: bold;
-            }
-            tr:nth-child(even) {
-                background-color: #f9f9f9;
-            }
-            tr:hover {
-                background-color: #f9f9f9;
-            }
-        </style>
-    )";
-    return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";
+    QFile cssFile(":/css/css-markdonw/github-markdown-light.css");
+    if (!cssFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        // Gérer l'erreur ici, par exemple :
+        cout << "Impossible d'ouvrir le fichier CSS !" << endl;
+        return htmlContent;
+    }
+    cout << "ok" << endl;
+    QString css = cssFile.readAll();
+    cout << css.toStdString() << endl;
+    return "<html><head><style>" + css + "</style></head><body>" + htmlContent + "</body></html>";
 }
 
 QString CUIAPostite::applyCssToHtmlBlack(const QString &htmlContent) {
-    QString css = R"(
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            h1, h2, h3 { color: #ffffff; }
-            p { color: #f2f2f2; line-height: 1.6; }
-            code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
-
-            /* Style pour les tableaux */
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-            }
-            th, td {
-                padding: 12px;
-                border: 5px solid white;
-                text-align: left;
-            }
-            th {
-                background-color: #0d0d0d;
-                color: #333;
-                font-weight: bold;
-            }
-            tr:nth-child(even) {
-                background-color: #1a1a1a;
-            }
-            tr:hover {
-                background-color: #00344d;
-            }
-        </style>
-    )";
-    return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";
+    QFile cssFile(":/css/css-markdonw/github-markdown-dark.css");
+    if (cssFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        // Gérer l'erreur ici, par exemple :
+        cout << "Impossible d'ouvrir le fichier CSS !" << endl;
+        return htmlContent;
+    }
+    cout << "ok" << endl;
+    QString css = cssFile.readAll();
+    cout << css.toStdString() << endl;
+    return "<html><head><style>" + css + "</style></head><body>" + htmlContent + "</body></html>";
 }
 
 void CUIAPostite::on_IDC_ADDCHECKBOX_clicked()
@@ -694,15 +650,16 @@ void CUIAPostite::onTextChanged()
     QTextDocument* document = ui->VIEWFILEMAKEDOWN->document();
     document->setMarkdown(markdownText,QTextDocument::MarkdownDialectGitHub);
 
-    /*
+
     if (color == "white"){
         styledHtml = applyCssToHtmlWhite(ui->VIEWFILEMAKEDOWN->toHtml());
     }else{
         styledHtml = applyCssToHtmlBlack(ui->VIEWFILEMAKEDOWN->toHtml());
     }
     ui->VIEWFILEMAKEDOWN->clear();
+    cout << styledHtml.toStdString() << endl;
     ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
-    */
+
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
 }
 
@@ -733,3 +690,27 @@ void CUIAPostite::on_IDC_OTHER_clicked()
     ui->IDC_SPINLIGNE->setValue(0);
     ui->postite->setCurrentIndex(indexTableau);
 }
+
+void CUIAPostite::on_IDC_SAVEHTML_clicked()
+{
+
+    QString nameFile = QFileDialog::getSaveFileName(
+        this,                         // parent (ou nullptr si hors QWidget)
+        "Sélectionner un fichier HTML",
+        QString(),                    // dossier par défaut (optionnel)
+        "Fichiers HTML (*.html *.htm);"
+        );
+
+    if (nameFile.isEmpty() == false)
+    {
+        QString contenu = ui->VIEWFILEMAKEDOWN->toHtml();
+
+        QFile file(nameFile);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&file);
+            out << contenu ;
+        }
+    }
+}
+

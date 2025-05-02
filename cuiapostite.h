@@ -16,6 +16,9 @@
 #include <QFileSystemModel>
 #include <QInputDialog>
 
+#include <iostream>
+using namespace std;
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class CUIAPostite;
@@ -114,5 +117,6 @@ private slots:
     void on_IDC_6X6_clicked();
     void on_IDC_10X10_clicked();
     void on_IDC_OTHER_clicked();
+    void on_IDC_SAVEHTML_clicked();
 };
 #endif // CUIAPOSTITE_H
