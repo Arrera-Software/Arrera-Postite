@@ -329,11 +329,6 @@ void CUIAPostite::on_IDC_BARRE_clicked()
 
 void CUIAPostite::on_IDC_PRINTPDF_clicked()
 {
-    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
-    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
-
     // 3. Créer une instance de QPrinter en mode PDF
     QPrinter printer(QPrinter::HighResolution);
 
@@ -349,15 +344,13 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
 
     printer.setOutputFileName(outputPath);  // Définir le fichier PDF de sortie
 
-    /*
     // 5. Imprimer le contenu HTML dans le fichier PDF
     QTextBrowser *browser = new QTextBrowser();
-    browser->setHtml(styledHtml);  // Charger le HTML stylisé
+    browser->setHtml(ui->VIEWFILEMAKEDOWN->toHtml());  // Charger le HTML stylisé
     browser->print(&printer);  // Imprimer dans le fichier PDF
 
     // 6. Libérer les ressources
     delete browser;
-    */
 }
 
 
@@ -393,18 +386,19 @@ void CUIAPostite::on_IDC_PRINT_clicked()
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
-    /*
-    QString styledHtml = applyCssToHtmlWhite(htmlContent);
+
     QTextBrowser *browser = new QTextBrowser();
-    browser->setHtml(styledHtml);
+    browser->setHtml(htmlContent);
     QPrinter printer(QPrinter::HighResolution);
     QPrintDialog printDialog(&printer);
+
     if (printDialog.exec() == QDialog::Rejected) {
         return;
     }
+
     browser->print(&printer);
     delete browser;
-    */
+
 }
 
 void CUIAPostite::on_IDC_ADDCHECKBOX_clicked()
