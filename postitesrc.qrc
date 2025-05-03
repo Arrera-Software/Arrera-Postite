@@ -22,5 +22,9 @@
         <file>tableauautre.png</file>
         <file>folder.png</file>
         <file>listeNumerote.png</file>
+        <file>html.png</file>
+        <file>edit.png</file>
+        <file>view.png</file>
+        <file>editView.png</file>
     </qresource>
 </RCC>

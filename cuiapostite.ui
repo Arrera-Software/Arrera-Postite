@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -354,31 +354,6 @@
              </attribute>
              <layout class="QHBoxLayout" name="horizontalLayout_13">
               <item>
-               <widget class="QPushButton" name="IDC_BTNEDITVIEW">
-                <property name="minimumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="IDC_BTNEDIT">
                 <property name="minimumSize">
                  <size>
@@ -394,6 +369,10 @@
                 </property>
                 <property name="text">
                  <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="postitesrc.qrc">
+                  <normaloff>:/img/edit.png</normaloff>:/img/edit.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -420,9 +399,42 @@
                 <property name="text">
                  <string/>
                 </property>
+                <property name="icon">
+                 <iconset resource="postitesrc.qrc">
+                  <normaloff>:/img/view.png</normaloff>:/img/view.png</iconset>
+                </property>
                 <property name="iconSize">
                  <size>
                   <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="IDC_BTNEDITVIEW">
+                <property name="minimumSize">
+                 <size>
+                  <width>80</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="postitesrc.qrc">
+                  <normaloff>:/img/editView.png</normaloff>:/img/editView.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>80</width>
                   <height>40</height>
                  </size>
                 </property>
@@ -844,7 +856,11 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>HTML</string>
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="postitesrc.qrc">
+                  <normaloff>:/img/html.png</normaloff>:/img/html.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

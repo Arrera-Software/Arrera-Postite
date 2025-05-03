@@ -34,7 +34,6 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     settings.beginGroup("postite");
     color = settings.value("color").toString();
     setColor();
-    cout << getEmplacement().toStdString() << endl;
     if (getEmplacement() == "null")
     {
         ui->postite->setCurrentIndex(indexMain);
