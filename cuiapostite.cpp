@@ -34,6 +34,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     settings.beginGroup("postite");
     color = settings.value("color").toString();
     setColor();
+    cout << getEmplacement().toStdString() << endl;
     if (getEmplacement() == "null")
     {
         ui->postite->setCurrentIndex(indexMain);
@@ -551,7 +552,7 @@ void CUIAPostite::openFileTreeView(const QModelIndex &index)
 void CUIAPostite::on_IDC_PARAMETREACCEUIL_clicked()
 {
     ui->postite->setCurrentIndex(indexPara);
-    ui->IDC_RETOUR->setVisible(false);
+    ui->IDC_RETOUR->setVisible(true);
 }
 
 void CUIAPostite::on_IDC_QUITACCEUIL_clicked()
