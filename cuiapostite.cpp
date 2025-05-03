@@ -37,13 +37,10 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     if (getEmplacement() == "null")
     {
         ui->postite->setCurrentIndex(indexMain);
-        ui->IDC_OPEN->setVisible(true);
     }
-    else
-    {
+    else{
         setViewFolder();
         ui->postite->setCurrentIndex(indexAcceuil);
-        ui->IDC_OPEN->setVisible(false);
     }
 }
 
@@ -403,55 +400,68 @@ void CUIAPostite::on_IDC_PRINT_clicked()
 
 void CUIAPostite::on_IDC_ADDCHECKBOX_clicked()
 {
+    QString texteAInserer = "- [ ] Texte\n- [ ] Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("- [ ] Texte\n- [ ] Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLIGNE_clicked()
 {
+    QString texteAInserer = "---";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("---");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDCITATION_clicked()
-{
+{    
+    QString texteAInserer = "> Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("> Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLISTEPUCE_clicked()
 {
+    QString texteAInserer = "- Texte\n- Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("- Texte\n- Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLISTENUMERO_clicked()
 {
+    QString texteAInserer = "1. Texte\n2. Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("1. Texte\n2. Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLIENINTERNET_clicked()
 {
+    QString texteAInserer = "[Texte du lien](URL_du_lien)";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("[Texte du lien](URL_du_lien)");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
+
 }
 
 // Gestion tableau
@@ -718,6 +728,10 @@ void CUIAPostite::on_IDC_SAVEHTML_clicked()
 
     if (nameFile.isEmpty() == false)
     {
+        if (!nameFile.contains(".html")){
+            nameFile = nameFile+".html";
+        }
+
         QString contenu = ui->VIEWFILEMAKEDOWN->toHtml();
 
         QFile file(nameFile);
@@ -729,3 +743,13 @@ void CUIAPostite::on_IDC_SAVEHTML_clicked()
     }
 }
 
+
+void CUIAPostite::on_IDC_INSERECODE_clicked()
+{
+    QString texteAInserer = "``````";
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
+    ui->ZONETEXTE->setTextCursor(curseur);
+}

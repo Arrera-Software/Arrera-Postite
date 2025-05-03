@@ -62,7 +62,7 @@
              <enum>QTabWidget::TabShape::Triangular</enum>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="Fichier">
              <attribute name="title">
@@ -464,7 +464,7 @@
                <widget class="QPushButton" name="IDC_ADDCITATION">
                 <property name="minimumSize">
                  <size>
-                  <width>40</width>
+                  <width>50</width>
                   <height>40</height>
                  </size>
                 </property>
@@ -625,6 +625,31 @@
                 <property name="icon">
                  <iconset resource="postitesrc.qrc">
                   <normaloff>:/img/lien.png</normaloff>:/img/lien.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="IDC_INSERECODE">
+                <property name="minimumSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
                 </property>
                 <property name="iconSize">
                  <size>

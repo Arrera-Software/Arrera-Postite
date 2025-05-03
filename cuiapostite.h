@@ -116,5 +116,6 @@ private slots:
     void on_IDC_10X10_clicked();
     void on_IDC_OTHER_clicked();
     void on_IDC_SAVEHTML_clicked();
+    void on_IDC_INSERECODE_clicked();
 };
 #endif // CUIAPOSTITE_H
