@@ -753,3 +753,24 @@ void CUIAPostite::on_IDC_INSERECODE_clicked()
     curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
 }
+
+void CUIAPostite::on_IDC_BTNEDITVIEW_clicked()
+{
+    ui->ZONETEXTE->setVisible(true);
+    ui->VIEWFILEMAKEDOWN->setVisible(true);
+}
+
+
+void CUIAPostite::on_IDC_BTNEDIT_clicked()
+{
+    ui->ZONETEXTE->setVisible(true);
+    ui->VIEWFILEMAKEDOWN->setVisible(false);
+}
+
+
+void CUIAPostite::on_IDC_BTNVIEW_clicked()
+{
+    ui->ZONETEXTE->setVisible(false);
+    ui->VIEWFILEMAKEDOWN->setVisible(true);
+}
+

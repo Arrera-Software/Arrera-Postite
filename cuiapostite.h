@@ -117,5 +117,8 @@ private slots:
     void on_IDC_OTHER_clicked();
     void on_IDC_SAVEHTML_clicked();
     void on_IDC_INSERECODE_clicked();
+    void on_IDC_BTNEDITVIEW_clicked();
+    void on_IDC_BTNEDIT_clicked();
+    void on_IDC_BTNVIEW_clicked();
 };
 #endif // CUIAPOSTITE_H
