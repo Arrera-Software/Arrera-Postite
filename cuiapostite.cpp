@@ -334,11 +334,6 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
 
-    QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
-
-    // 2. Appliquer un style CSS pour l'impression
-    QString styledHtml = applyCssToHtmlWhite(htmlContent);
-
     // 3. Créer une instance de QPrinter en mode PDF
     QPrinter printer(QPrinter::HighResolution);
 
@@ -354,6 +349,7 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
 
     printer.setOutputFileName(outputPath);  // Définir le fichier PDF de sortie
 
+    /*
     // 5. Imprimer le contenu HTML dans le fichier PDF
     QTextBrowser *browser = new QTextBrowser();
     browser->setHtml(styledHtml);  // Charger le HTML stylisé
@@ -361,6 +357,7 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
 
     // 6. Libérer les ressources
     delete browser;
+    */
 }
 
 
@@ -396,6 +393,7 @@ void CUIAPostite::on_IDC_PRINT_clicked()
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
+    /*
     QString styledHtml = applyCssToHtmlWhite(htmlContent);
     QTextBrowser *browser = new QTextBrowser();
     browser->setHtml(styledHtml);
@@ -406,33 +404,7 @@ void CUIAPostite::on_IDC_PRINT_clicked()
     }
     browser->print(&printer);
     delete browser;
-}
-
-
-QString CUIAPostite::applyCssToHtmlWhite(const QString &htmlContent) {
-    QFile cssFile(":/css/css-markdonw/github-markdown-light.css");
-    if (!cssFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        // Gérer l'erreur ici, par exemple :
-        cout << "Impossible d'ouvrir le fichier CSS !" << endl;
-        return htmlContent;
-    }
-    cout << "ok" << endl;
-    QString css = cssFile.readAll();
-    cout << css.toStdString() << endl;
-    return "<html><head><style>" + css + "</style></head><body>" + htmlContent + "</body></html>";
-}
-
-QString CUIAPostite::applyCssToHtmlBlack(const QString &htmlContent) {
-    QFile cssFile(":/css/css-markdonw/github-markdown-dark.css");
-    if (cssFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        // Gérer l'erreur ici, par exemple :
-        cout << "Impossible d'ouvrir le fichier CSS !" << endl;
-        return htmlContent;
-    }
-    cout << "ok" << endl;
-    QString css = cssFile.readAll();
-    cout << css.toStdString() << endl;
-    return "<html><head><style>" + css + "</style></head><body>" + htmlContent + "</body></html>";
+    */
 }
 
 void CUIAPostite::on_IDC_ADDCHECKBOX_clicked()
@@ -645,20 +617,9 @@ void CUIAPostite::onTextChanged()
     ui->VIEWFILEMAKEDOWN->setReadOnly(false);
     ui->VIEWFILEMAKEDOWN->clear();
 
-
     QString markdownText = ui->ZONETEXTE->toPlainText();
     QTextDocument* document = ui->VIEWFILEMAKEDOWN->document();
     document->setMarkdown(markdownText,QTextDocument::MarkdownDialectGitHub);
-
-
-    if (color == "white"){
-        styledHtml = applyCssToHtmlWhite(ui->VIEWFILEMAKEDOWN->toHtml());
-    }else{
-        styledHtml = applyCssToHtmlBlack(ui->VIEWFILEMAKEDOWN->toHtml());
-    }
-    ui->VIEWFILEMAKEDOWN->clear();
-    cout << styledHtml.toStdString() << endl;
-    ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
 
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
 }

@@ -99,8 +99,6 @@ private:
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
     QSettings *settings;
-    QString applyCssToHtmlWhite(const QString &htmlContent);
-    QString applyCssToHtmlBlack(const QString &htmlContent);
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);
