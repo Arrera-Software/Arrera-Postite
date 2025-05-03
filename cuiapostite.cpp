@@ -595,7 +595,6 @@ void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
 
 void CUIAPostite::onTextChanged()
 {
-    QString styledHtml;
     if (nameFile.isEmpty() == false)
     {
         QString contenu = ui->ZONETEXTE->toPlainText();
@@ -613,7 +612,68 @@ void CUIAPostite::onTextChanged()
 
     QString markdownText = ui->ZONETEXTE->toPlainText();
     QTextDocument* document = ui->VIEWFILEMAKEDOWN->document();
-    document->setMarkdown(markdownText,QTextDocument::MarkdownDialectGitHub);
+    document->setMarkdown(markdownText);
+
+    if (color == "black"){
+        QString html = ui->VIEWFILEMAKEDOWN->toHtml();
+        QString styledHtml = R"(<html><head>
+                                <style type='text/css'>
+                                    table {
+                                        border-collapse: collapse;
+                                        width: 85%;
+                                        font-family: Arial, sans-serif;
+                                        font-size: 20px;
+                                        justify-self: center;
+                                        color: white;
+                                      }
+
+                                      th, td {
+                                        border: 1px solid white;
+                                        text-align: left;
+                                        padding: 8px;
+                                        text-align: center;
+                                      }
+
+                                      th {
+                                        background-color: #616161;
+                                      }
+
+                                      tr:nth-child(even) {
+                                        background-color: #4b4b4b;
+                                      }
+                                </style>
+                                </head><body>)";
+        ui->VIEWFILEMAKEDOWN->setHtml(styledHtml+html+"</body>");
+    }else{
+        QString html = ui->VIEWFILEMAKEDOWN->toHtml();
+        QString styledHtml = R"(<html><head>
+                                <style type='text/css'>
+                                table {
+                                        border-collapse: collapse;
+                                        width: 85%;
+                                        font-family: Arial, sans-serif;
+                                        font-size: 20px;
+                                        justify-self: center;
+                                      }
+
+                                      th, td {
+                                        border: 1px solid black;
+                                        text-align: left;
+                                        padding: 8px;
+                                        text-align: center;
+                                      }
+
+                                      th {
+                                        background-color: #f2f2f2;
+                                      }
+
+                                      tr:nth-child(even) {
+                                        background-color: #fafafa;
+                                      }
+                                </style>
+                                </head><body>)";
+        ui->VIEWFILEMAKEDOWN->setHtml(styledHtml+html+"</body>");
+    }
 
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
 }
