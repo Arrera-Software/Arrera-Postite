@@ -62,7 +62,7 @@
              <enum>QTabWidget::TabShape::Triangular</enum>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="Fichier">
              <attribute name="title">
@@ -482,8 +482,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>3 X 3</string>
@@ -507,8 +510,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>6 X 6</string>
@@ -532,8 +538,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>10 X 10</string>
@@ -557,8 +566,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>AUTRE</string>

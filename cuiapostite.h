@@ -15,7 +15,10 @@
 #include <QTextDocument>
 #include <QFileSystemModel>
 #include <QInputDialog>
+#include <QShortcut>
+#include <QKeySequence>
 
+// Partie debug
 #include <iostream>
 using namespace std;
 
@@ -104,6 +107,10 @@ private:
     int getColone(int tab);
     int getLigne(int tab);
     void setViewFolder();
+    // Partie raccourci clavier
+    QShortcut *shortcutOpen;
+    QShortcut *shortcutSave;
+    QShortcut *shortcutNew;
 private slots:
     void openFileTreeView(const QModelIndex &index);
     void on_IDC_PARAMETREACCEUIL_clicked();

@@ -7,20 +7,32 @@ CUIAPostite::CUIAPostite(QWidget *parent)
 {
     ui->setupUi(this);
     model = new QFileSystemModel(this);
+
+    // Index Page
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
     indexTableau = ui->postite->indexOf(ui->manageTableau);
     indexAcceuil = ui->postite->indexOf(ui->pageFile);
 
-    // Index
+    // Index onglets
     indexOngletFichier = ui->tabonsere->indexOf(ui->Fichier);
     indexOngletTexte = ui->tabonsere->indexOf(ui->texte);
     indexOngletTableau = ui->tabonsere->indexOf(ui->tableau);
     indexOngletInserer = ui->tabonsere->indexOf(ui->inserer);
     indexOngletExport = ui->tabonsere->indexOf(ui->exportPage);
 
+    // Mise en place des raccourci clavier
+    shortcutNew = new QShortcut(QKeySequence(tr("Ctrl+N")), this);
+    shortcutSave = new QShortcut(QKeySequence(tr("Ctrl+S")), this);
+    shortcutOpen = new QShortcut(QKeySequence(tr("Ctrl+O")), this);
+
+    // Connect
     connect(ui->IDC_VIEWFILE, &QTreeView::doubleClicked, this, &CUIAPostite::openFileTreeView);
     connect(ui->ZONETEXTE, &MyTextEdit::textChanged, this, &CUIAPostite::onTextChanged);
+    connect(shortcutNew, &QShortcut::activated, this,&CUIAPostite::on_IDC_NEW_clicked);
+    connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_SAVE_clicked);
+    connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_OPEN_clicked);
+
     nameFile = "";
 
     ui->tabonsere->setCurrentIndex(indexOngletFichier);
