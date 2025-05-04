@@ -15,6 +15,12 @@
 #include <QTextDocument>
 #include <QFileSystemModel>
 #include <QInputDialog>
+#include <QShortcut>
+#include <QKeySequence>
+
+// Partie debug
+#include <iostream>
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -53,17 +59,7 @@ private slots:
 
     void on_IDC_SETCOLOR_clicked();
 
-    void on_IDC_RETOURCOLOR_clicked();
-
-    void on_IDC_YELLOW_clicked();
-
-    void on_IDC_WHITE_clicked();
-
-    void on_IDC_BLACK_clicked();
-
-    bool setColor(QString color);
-
-    void on_IDC_VIEW_clicked();
+    bool setColor();
 
     void on_IDC_TITRE1_clicked();
 
@@ -77,21 +73,11 @@ private slots:
 
     void on_IDC_BARRE_clicked();
 
-    void on_IDC_RETOUREDITEUR_clicked();
-
-    void on_IDC_EXPORT_clicked();
-
-    void on_IDC_RETOUREXPORT_clicked();
-
     void on_IDC_PRINTPDF_clicked();
 
     void on_IDC_PRINDMD_clicked();
 
     void on_IDC_PRINT_clicked();
-
-    void on_IDC_ADD_clicked();
-
-    void on_IDC_RETOURINSERER_clicked();
 
     void on_IDC_ADDCHECKBOX_clicked();
 
@@ -105,43 +91,65 @@ private slots:
 
     void on_IDC_ADDLIENINTERNET_clicked();
 
-    void on_IDC_PARATABLEAU1_clicked();
-
-    void on_IDC_PARATABLEAU2_clicked();
-
-    void on_IDC_ADDTABLEAU1_clicked();
-
-    void on_IDC_ADDTABLEAU2_clicked();
-
-    void on_TABLEAUAUTRE_clicked();
-
-    void on_IDC_PARAMETRAGE1_clicked();
-
-    void on_IDC_PARAMETRAGE2_clicked();
-
     void on_IDC_ADDTABLEAU_clicked();
 
     void on_IDC_CANCELTABLEAU_clicked();
 
+    void openFileTreeView(const QModelIndex &index);
+
+    void on_IDC_PARAMETREACCEUIL_clicked();
+
+    void on_IDC_QUITACCEUIL_clicked();
+
+    void on_IDC_OPENOTHER_clicked();
+
+    void on_IDC_ADDFILEACCEUIL_clicked();
+
+    void onTextChanged();
+
+    void on_IDC_3X3_clicked();
+
+    void on_IDC_6X6_clicked();
+
+    void on_IDC_10X10_clicked();
+
+    void on_IDC_OTHER_clicked();
+
+    void on_IDC_SAVEHTML_clicked();
+
+    void on_IDC_INSERECODE_clicked();
+
+    void on_IDC_BTNEDITVIEW_clicked();
+
+    void on_IDC_BTNEDIT_clicked();
+
+    void on_IDC_BTNVIEW_clicked();
+
+    void on_IDC_MARKGITHUB_clicked();
+
+    void on_IDC_GITHUBACCEUIL_clicked();
+
+    void on_IDC_NEWACCEUIL_clicked();
+
+    void on_IDC_PARAMETREMAINACCEUIL_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
-    int indexMain, indexPara ,indexColor,indexView,indexExport,indexInserer,indexTableau,indexAcceuil ;
+    int indexMain, indexPara,indexTableau,indexFile,indexAcceuil ;
+    int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
+    QString typeFile;
     QSettings *settings;
-    QString applyCssToHtml(const QString &htmlContent);
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);
     int getLigne(int tab);
     void setViewFolder();
-private slots:
-    void openFileTreeView(const QModelIndex &index);
-    void on_IDC_PARAMETREACCEUIL_clicked();
-    void on_IDC_RETOURACCEUIL_clicked();
-    void on_IDC_QUITACCEUIL_clicked();
-    void on_IDC_OPENOTHER_clicked();
-    void on_IDC_ADDFILEACCEUIL_clicked();
-    void onTextChanged();
+    // Partie raccourci clavier
+    QShortcut *shortcutOpen;
+    QShortcut *shortcutSave;
+    QShortcut *shortcutNew;
+
 };
 #endif // CUIAPOSTITE_H

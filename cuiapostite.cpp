@@ -6,41 +6,58 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite)
 {
     ui->setupUi(this);
+    // Init des var
     model = new QFileSystemModel(this);
+    nameFile = "";
+    typeFile = "ab";
+
+    // Index Page
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
-    indexColor = ui->postite->indexOf(ui->colorSelect);
-    indexView = ui->postite->indexOf(ui->view);
-    indexExport = ui->postite->indexOf(ui->pageexport);
-    indexInserer = ui->postite->indexOf(ui->insersion);
     indexTableau = ui->postite->indexOf(ui->manageTableau);
-    indexAcceuil = ui->postite->indexOf(ui->pageFile);
+    indexFile = ui->postite->indexOf(ui->pageFile);
+    indexAcceuil = ui->postite->indexOf(ui->acceuil);
+
+    // Index onglets
+    indexOngletFichier = ui->tabonsere->indexOf(ui->Fichier);
+    indexOngletTexte = ui->tabonsere->indexOf(ui->texte);
+    indexOngletTableau = ui->tabonsere->indexOf(ui->tableau);
+    indexOngletInserer = ui->tabonsere->indexOf(ui->inserer);
+    indexOngletExport = ui->tabonsere->indexOf(ui->exportPage);
+
+    // Mise en place des raccourci clavier
+    shortcutNew = new QShortcut(QKeySequence(tr("Ctrl+N")), this);
+    shortcutSave = new QShortcut(QKeySequence(tr("Ctrl+S")), this);
+    shortcutOpen = new QShortcut(QKeySequence(tr("Ctrl+O")), this);
+
+    // Connect
     connect(ui->IDC_VIEWFILE, &QTreeView::doubleClicked, this, &CUIAPostite::openFileTreeView);
     connect(ui->ZONETEXTE, &MyTextEdit::textChanged, this, &CUIAPostite::onTextChanged);
-    nameFile = "";
+    connect(shortcutNew, &QShortcut::activated, this,&CUIAPostite::on_IDC_NEW_clicked);
+    connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_SAVE_clicked);
+    connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_OPEN_clicked);
+
+    // Partie parametre
     if (!fileExists("postite.ini"))
     {
         createFile();
-        ui->postite->setCurrentIndex(indexMain);
+        ui->postite->setCurrentIndex(indexAcceuil);
     }
-    else
+    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings.beginGroup("postite");
+    color = settings.value("color").toString();
+    setColor();
+    if (getEmplacement() == "null")
     {
-        QSettings settings("postite.ini", QSettings::IniFormat);
-        settings.beginGroup("postite");
-        color = settings.value("color").toString();
-        setColor(color);
-        if (getEmplacement() == "null")
-        {
-            ui->postite->setCurrentIndex(indexMain);
-            ui->IDC_OPEN->setVisible(true);
-        }
-        else
-        {
-            setViewFolder();
-            ui->postite->setCurrentIndex(indexAcceuil);
-            ui->IDC_OPEN->setVisible(false);
-        }
+        ui->postite->setCurrentIndex(indexAcceuil);
     }
+    else{
+        setViewFolder();
+        ui->postite->setCurrentIndex(indexFile);
+    }
+
+    // Set de l'ongets par default
+    ui->tabonsere->setCurrentIndex(indexOngletFichier);
 }
 
 CUIAPostite::~CUIAPostite()
@@ -52,20 +69,30 @@ void CUIAPostite::on_IDC_SAVE_clicked()
 {
     QString contenuTextEdit;
     QString nomFichier ;
-    if (!emplacementIsSet())
-    {
-        nomFichier=QFileDialog::getSaveFileName(nullptr,
-                                                  "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
-    }
-    else
-    {
-        nomFichier=QFileDialog::getSaveFileName(nullptr,
-                                                  "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
-    }
+    if (typeFile == "ab"){
+        if (!emplacementIsSet())
+        {
+            nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                      "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
+        }
+        else
+        {
+            nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                      "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
+        }
 
-    // Vérifie si l'extension est manquante et l'ajoute si nécessaire
-    if (!nomFichier.endsWith(".ab", Qt::CaseInsensitive)) {
-        nomFichier += ".ab";
+        // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+        if (!nomFichier.endsWith(".ab", Qt::CaseInsensitive)) {
+            nomFichier += ".ab";
+        }
+    }else{
+        nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                  "Enregistrer le fichier", QDir::homePath(), "Fichiers Markdown (*.md)");
+
+        // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+        if (!nomFichier.endsWith(".md", Qt::CaseInsensitive)) {
+            nomFichier += ".md";
+        }
     }
 
     QFile file(nomFichier);
@@ -130,7 +157,6 @@ void CUIAPostite::on_IDC_PARA_clicked()
 {
     ui->postite->setCurrentIndex(indexPara);
     ui->IDC_RETOUR->setVisible(true);
-    ui->IDC_RETOURACCEUIL->setVisible(false);
 }
 
 
@@ -138,11 +164,11 @@ void CUIAPostite::on_IDC_QUIT_clicked()
 {
     if (getEmplacement() == "null")
     {
-       close();
+       ui->postite->setCurrentIndex(indexAcceuil);
     }
     else
     {
-        ui->postite->setCurrentIndex(indexAcceuil);
+        ui->postite->setCurrentIndex(indexFile);
     }
 }
 
@@ -208,11 +234,7 @@ void CUIAPostite::createFile()
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
-    settings.setValue("color", "yellow");
-    settings.setValue("lTableau1",5);
-    settings.setValue("lTableau2",5);
-    settings.setValue("cTableau1",3);
-    settings.setValue("cTableau2",10);
+    settings.setValue("color", "white");
     settings.endGroup();
 }
 
@@ -233,81 +255,43 @@ QString CUIAPostite::getEmplacement()
 
 void CUIAPostite::on_IDC_SETCOLOR_clicked()
 {
-    ui->postite->setCurrentIndex(indexColor);
-}
-
-
-void CUIAPostite::on_IDC_RETOURCOLOR_clicked()
-{
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
-void CUIAPostite::on_IDC_YELLOW_clicked()
-{
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
-    settings.setValue("color", "yellow");
-    setColor("yellow");
-    settings.endGroup();
-    ui->postite->setCurrentIndex(indexMain);
-}
+    color = settings.value("color").toString();
 
-
-void CUIAPostite::on_IDC_WHITE_clicked()
-{
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("color", "white");
-    setColor("white");
-    settings.endGroup();
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
-void CUIAPostite::on_IDC_BLACK_clicked()
-{
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("color", "black");
-    setColor("black");
-    settings.endGroup();
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-bool CUIAPostite::setColor(QString color)
-{
-    if (color == "yellow")
-    {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: black;");
-        return true;
+    if (color == "white"){
+        settings.setValue("color", "black");
+        color = "black";
+        setColor();
+    }else{
+        settings.setValue("color", "white");
+        color = "white";
+        setColor();
     }
-    else if (color == "white")
+
+    settings.endGroup();
+    ui->postite->setCurrentIndex(indexMain);
+    onTextChanged();
+}
+
+bool CUIAPostite::setColor()
+{
+    if (color == "white")
     {
         ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
+        ui->VIEWFILEMAKEDOWN->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return true;
     } else if (color == "black")
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(0, 0, 0)");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(0, 0, 0); color: white");
+        ui->VIEWFILEMAKEDOWN->setStyleSheet("background-color: rgb(0, 0, 0); color: white");
         return true;
     } else
     {
-        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 192); color: white;");
+        ui->ZONETEXTE->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
+        ui->VIEWFILEMAKEDOWN->setStyleSheet("background-color: rgb(255, 255, 255); color: black;");
         return false;
     }
-}
-
-
-void CUIAPostite::on_IDC_VIEW_clicked()
-{
-    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
-    QString styledHtml = applyCssToHtml(ui->VIEWFILEMAKEDOWN->toHtml());
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setHtml(styledHtml);
-    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
-    ui->postite->setCurrentIndex(indexView);
 }
 
 void CUIAPostite::on_IDC_TITRE1_clicked()
@@ -366,35 +350,8 @@ void CUIAPostite::on_IDC_BARRE_clicked()
     ui->ZONETEXTE->setTextCursor(curseur);
 }
 
-void CUIAPostite::on_IDC_RETOUREDITEUR_clicked()
-{
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-void CUIAPostite::on_IDC_EXPORT_clicked()
-{
-    ui->postite->setCurrentIndex(indexExport);
-}
-
-
-void CUIAPostite::on_IDC_RETOUREXPORT_clicked()
-{
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
 void CUIAPostite::on_IDC_PRINTPDF_clicked()
 {
-    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
-    ui->VIEWFILEMAKEDOWN->clear();
-    ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
-    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
-
-    QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
-
-    // 2. Appliquer un style CSS pour l'impression
-    QString styledHtml = applyCssToHtml(htmlContent);
-
     // 3. Créer une instance de QPrinter en mode PDF
     QPrinter printer(QPrinter::HighResolution);
 
@@ -412,7 +369,7 @@ void CUIAPostite::on_IDC_PRINTPDF_clicked()
 
     // 5. Imprimer le contenu HTML dans le fichier PDF
     QTextBrowser *browser = new QTextBrowser();
-    browser->setHtml(styledHtml);  // Charger le HTML stylisé
+    browser->setHtml(ui->VIEWFILEMAKEDOWN->toHtml());  // Charger le HTML stylisé
     browser->print(&printer);  // Imprimer dans le fichier PDF
 
     // 6. Libérer les ressources
@@ -452,162 +409,88 @@ void CUIAPostite::on_IDC_PRINT_clicked()
     ui->VIEWFILEMAKEDOWN->setMarkdown(ui->ZONETEXTE->toPlainText());
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
     QString htmlContent = ui->VIEWFILEMAKEDOWN->toHtml();
-    QString styledHtml = applyCssToHtml(htmlContent);
+
     QTextBrowser *browser = new QTextBrowser();
-    browser->setHtml(styledHtml);
+    browser->setHtml(htmlContent);
     QPrinter printer(QPrinter::HighResolution);
     QPrintDialog printDialog(&printer);
+
     if (printDialog.exec() == QDialog::Rejected) {
         return;
     }
+
     browser->print(&printer);
     delete browser;
+
 }
-
-
-QString CUIAPostite::applyCssToHtml(const QString &htmlContent) {
-    QString css = R"(
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            h1, h2, h3 { color: #333; }
-            p { color: #555; line-height: 1.6; }
-            code { font-family: 'Courier New', monospace; background-color: #f4f4f4; padding: 2px 4px; }
-
-            /* Style pour les tableaux */
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-            }
-            th, td {
-                padding: 12px;
-                border: 5px solid black;
-                text-align: left;
-            }
-            th {
-                background-color: #f2f2f2;
-                color: #333;
-                font-weight: bold;
-            }
-            tr:nth-child(even) {
-                background-color: #f9f9f9;
-            }
-            tr:hover {
-                background-color: #e6f7ff;
-            }
-        </style>
-    )";
-    return "<html><head>" + css + "</head><body>" + htmlContent + "</body></html>";
-}
-
-
-void CUIAPostite::on_IDC_ADD_clicked()
-{
-    ui->postite->setCurrentIndex(indexInserer);
-}
-
-
-void CUIAPostite::on_IDC_RETOURINSERER_clicked()
-{
-    ui->postite->setCurrentIndex(indexMain);
-}
-
 
 void CUIAPostite::on_IDC_ADDCHECKBOX_clicked()
 {
+    QString texteAInserer = "- [ ] Texte\n- [ ] Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("- [ ] Texte\n- [ ] Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLIGNE_clicked()
 {
+    QString texteAInserer = "---";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("---");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDCITATION_clicked()
-{
+{    
+    QString texteAInserer = "> Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("> Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLISTEPUCE_clicked()
 {
+    QString texteAInserer = "- Texte\n- Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("- Texte\n- Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLISTENUMERO_clicked()
 {
+    QString texteAInserer = "1. Texte\n2. Texte";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("1. Texte\n2. Texte");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
 }
 
 
 void CUIAPostite::on_IDC_ADDLIENINTERNET_clicked()
 {
+    QString texteAInserer = "[Texte du lien](URL_du_lien)";
     QTextCursor curseur = ui->ZONETEXTE->textCursor();
-    curseur.insertText("[Texte du lien](URL_du_lien)");
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
     ui->ZONETEXTE->setTextCursor(curseur);
-    ui->postite->setCurrentIndex(indexMain);
+
 }
 
 // Gestion tableau
-
-void CUIAPostite::on_IDC_PARATABLEAU1_clicked()
-{
-    ui->postite->setCurrentIndex(indexTableau);
-    ui->IDC_PARAMETRAGE1->setVisible(true);
-    ui->IDC_PARAMETRAGE2->setVisible(false);
-    ui->IDC_ADDTABLEAU->setVisible(false);
-
-}
-
-void CUIAPostite::on_IDC_PARATABLEAU2_clicked()
-{
-    ui->postite->setCurrentIndex(indexTableau);
-    ui->IDC_PARAMETRAGE1->setVisible(false);
-    ui->IDC_PARAMETRAGE2->setVisible(true);
-    ui->IDC_ADDTABLEAU->setVisible(false);
-}
-
-
-void CUIAPostite::on_IDC_ADDTABLEAU1_clicked()
-{
-    insertTableau(getColone(1),getLigne(1));
-    ui->postite->setCurrentIndex(indexMain);
-    ui->IDC_PARAMETRAGE1->setVisible(true);
-}
-
-
-void CUIAPostite::on_IDC_ADDTABLEAU2_clicked()
-{
-    insertTableau(getColone(2),getLigne(2));
-    ui->postite->setCurrentIndex(indexMain);
-    ui->IDC_PARAMETRAGE1->setVisible(true);
-}
-
-void CUIAPostite::on_TABLEAUAUTRE_clicked()
-{
-    ui->postite->setCurrentIndex(indexTableau);
-    ui->IDC_PARAMETRAGE1->setVisible(false);
-    ui->IDC_PARAMETRAGE2->setVisible(false);
-    ui->IDC_ADDTABLEAU->setVisible(true);
-}
 
 void CUIAPostite::insertTableau(int nbColone, int nbLigne)
 {
@@ -635,49 +518,6 @@ void CUIAPostite::insertTableau(int nbColone, int nbLigne)
     ui->ZONETEXTE->setTextCursor(curseur);
 }
 
-
-void CUIAPostite::on_IDC_PARAMETRAGE1_clicked()
-{
-    int nbColone ;
-    int nbLigne ;
-    QString message ;
-    nbColone = ui->IDC_SPINCOLONE->value();
-    nbLigne = ui->IDC_SPINLIGNE->value();
-    message = "Le tableau numero 1 est "
-              "enregistrer avec "+QString::number(nbColone)+
-              " colone et "+QString::number(nbLigne)+" lignes";
-    ui->IDC_SPINCOLONE->setValue(0);
-    ui->IDC_SPINLIGNE->setValue(0);
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("lTableau1",nbLigne);
-    settings.setValue("cTableau1",nbColone);
-    QMessageBox::information(nullptr,"Information",message);
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
-void CUIAPostite::on_IDC_PARAMETRAGE2_clicked()
-{
-    int nbColone ;
-    int nbLigne ;
-    QString message ;
-    nbColone = ui->IDC_SPINCOLONE->value();
-    nbLigne = ui->IDC_SPINLIGNE->value();
-    message = "Le tableau numero 1 est "
-              "enregistrer avec "+QString::number(nbColone)+
-              " colone et "+QString::number(nbLigne)+" lignes";
-    ui->IDC_SPINCOLONE->setValue(0);
-    ui->IDC_SPINLIGNE->setValue(0);
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("lTableau2",nbLigne);
-    settings.setValue("cTableau2",nbColone);
-    QMessageBox::information(nullptr,"Information",message);
-    ui->postite->setCurrentIndex(indexMain);
-}
-
-
 void CUIAPostite::on_IDC_ADDTABLEAU_clicked()
 {
     int nbColone ;
@@ -695,47 +535,6 @@ void CUIAPostite::on_IDC_CANCELTABLEAU_clicked()
     ui->postite->setCurrentIndex(indexMain);
     ui->IDC_SPINCOLONE->setValue(0);
     ui->IDC_SPINLIGNE->setValue(0);
-}
-
-int CUIAPostite::getColone(int tab)
-{
-    int nb ;
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    switch(tab)
-    {
-        case 1 :
-            nb = settings.value("cTableau1").toInt();
-            break;
-        case 2 :
-            nb = settings.value("cTableau2").toInt();
-            break;
-        default:
-            nb = 1 ;
-            break ;
-    }
-    settings.endGroup();
-    return nb ;
-}
-int CUIAPostite::getLigne(int tab)
-{
-    int nb ;
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    switch(tab)
-    {
-    case 1 :
-        nb = settings.value("lTableau1").toInt();
-        break;
-    case 2 :
-        nb = settings.value("lTableau2").toInt();
-        break;
-    default:
-        nb = 1 ;
-        break ;
-    }
-    settings.endGroup();
-    return nb ;
 }
 
 
@@ -771,20 +570,14 @@ void CUIAPostite::openFileTreeView(const QModelIndex &index)
             ui->ZONETEXTE->setPlainText(contenu);
         }
         ui->postite->setCurrentIndex(indexMain);
+        ui->tabonsere->setCurrentIndex(indexOngletFichier);
     }
 }
 
 void CUIAPostite::on_IDC_PARAMETREACCEUIL_clicked()
 {
     ui->postite->setCurrentIndex(indexPara);
-    ui->IDC_RETOUR->setVisible(false);
-    ui->IDC_RETOURACCEUIL->setVisible(true);
-}
-
-
-void CUIAPostite::on_IDC_RETOURACCEUIL_clicked()
-{
-    ui->postite->setCurrentIndex(indexAcceuil);
+    ui->IDC_RETOUR->setVisible(true);
 }
 
 void CUIAPostite::on_IDC_QUITACCEUIL_clicked()
@@ -802,6 +595,7 @@ void CUIAPostite::on_IDC_OPENOTHER_clicked()
 void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
 {
     bool ok;
+    typeFile = "ab";
     QString nom = "" , nomFichier = getEmplacement()+"/";
     ui->ZONETEXTE->clear();
     ui->postite->setCurrentIndex(indexMain);
@@ -849,4 +643,253 @@ void CUIAPostite::onTextChanged()
             out << contenu ;
         }
     }
+
+    ui->VIEWFILEMAKEDOWN->setReadOnly(false);
+    ui->VIEWFILEMAKEDOWN->clear();
+
+    QString markdownText = ui->ZONETEXTE->toPlainText();
+    QTextDocument* document = ui->VIEWFILEMAKEDOWN->document();
+    document->setMarkdown(markdownText);
+
+    if (color == "black"){
+        QString html = ui->VIEWFILEMAKEDOWN->toHtml();
+        QString styledHtml = R"(<html><head>
+                                <style type='text/css'>
+                                    table {
+                                        border-collapse: collapse;
+                                        width: 85%;
+                                        font-family: Arial, sans-serif;
+                                        font-size: 20px;
+                                        justify-self: center;
+                                        color: white;
+                                      }
+
+                                      th, td {
+                                        border: 1px solid white;
+                                        text-align: left;
+                                        padding: 8px;
+                                        text-align: center;
+                                      }
+
+                                      th {
+                                        background-color: #616161;
+                                      }
+
+                                      tr:nth-child(even) {
+                                        background-color: #4b4b4b;
+                                      }
+                                </style>
+                                </head><body>)";
+        ui->VIEWFILEMAKEDOWN->setHtml(styledHtml+html+"</body>");
+    }else{
+        QString html = ui->VIEWFILEMAKEDOWN->toHtml();
+        QString styledHtml = R"(<html><head>
+                                <style type='text/css'>
+                                table {
+                                        border-collapse: collapse;
+                                        width: 85%;
+                                        font-family: Arial, sans-serif;
+                                        font-size: 20px;
+                                        justify-self: center;
+                                      }
+
+                                      th, td {
+                                        border: 1px solid black;
+                                        text-align: left;
+                                        padding: 8px;
+                                        text-align: center;
+                                      }
+
+                                      th {
+                                        background-color: #f2f2f2;
+                                      }
+
+                                      tr:nth-child(even) {
+                                        background-color: #fafafa;
+                                      }
+                                </style>
+                                </head><body>)";
+        ui->VIEWFILEMAKEDOWN->setHtml(styledHtml+html+"</body>");
+    }
+
+    ui->VIEWFILEMAKEDOWN->setReadOnly(true);
+}
+
+void CUIAPostite::on_IDC_3X3_clicked()
+{
+    insertTableau(3,3);
+    onTextChanged();
+}
+
+
+void CUIAPostite::on_IDC_6X6_clicked()
+{
+    insertTableau(6,6);
+    onTextChanged();
+}
+
+
+void CUIAPostite::on_IDC_10X10_clicked()
+{
+    insertTableau(10,10);
+    onTextChanged();
+}
+
+
+void CUIAPostite::on_IDC_OTHER_clicked()
+{
+    ui->IDC_SPINCOLONE->setValue(0);
+    ui->IDC_SPINLIGNE->setValue(0);
+    ui->postite->setCurrentIndex(indexTableau);
+}
+
+void CUIAPostite::on_IDC_SAVEHTML_clicked()
+{
+
+    QString nameFile = QFileDialog::getSaveFileName(
+        this,                         // parent (ou nullptr si hors QWidget)
+        "Sélectionner un fichier HTML",
+        QString(),                    // dossier par défaut (optionnel)
+        "Fichiers HTML (*.html *.htm);"
+        );
+
+    if (nameFile.isEmpty() == false)
+    {
+        if (!nameFile.contains(".html")){
+            nameFile = nameFile+".html";
+        }
+
+        QString contenu = ui->VIEWFILEMAKEDOWN->toHtml();
+
+        QFile file(nameFile);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&file);
+            out << contenu ;
+        }
+    }
+}
+
+
+void CUIAPostite::on_IDC_INSERECODE_clicked()
+{
+    QString texteAInserer = "``````";
+    QTextCursor curseur = ui->ZONETEXTE->textCursor();
+    curseur.insertText(texteAInserer);
+    int positionMilieu = curseur.position() - texteAInserer.length() / 2;
+    curseur.setPosition(positionMilieu, QTextCursor::MoveAnchor);
+    ui->ZONETEXTE->setTextCursor(curseur);
+}
+
+void CUIAPostite::on_IDC_BTNEDITVIEW_clicked()
+{
+    ui->ZONETEXTE->setVisible(true);
+    ui->VIEWFILEMAKEDOWN->setVisible(true);
+}
+
+
+void CUIAPostite::on_IDC_BTNEDIT_clicked()
+{
+    ui->ZONETEXTE->setVisible(true);
+    ui->VIEWFILEMAKEDOWN->setVisible(false);
+}
+
+
+void CUIAPostite::on_IDC_BTNVIEW_clicked()
+{
+    ui->ZONETEXTE->setVisible(false);
+    ui->VIEWFILEMAKEDOWN->setVisible(true);
+}
+
+
+void CUIAPostite::on_IDC_MARKGITHUB_clicked()
+{
+    typeFile = "md";
+    QString fileName = "",contenuTextEdit="";
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous ouvrir un fichier markdown ?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes){
+        while (fileName == ""){
+            fileName = QFileDialog::getOpenFileName(
+                this,
+                "Sélectionner un fichier Markdown",
+                QDir::homePath(), // Dossier de départ, ici le dossier utilisateur
+                "Fichiers Markdown (*.md)"
+                );
+        }
+        QFile file(fileName); // fileName : le chemin récupéré avec QFileDialog
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            contenuTextEdit = in.readAll();
+            ui->ZONETEXTE->setPlainText(contenuTextEdit);
+            file.close();
+            ui->postite->setCurrentIndex(indexMain);
+            nameFile = fileName;
+        } else {
+            QMessageBox::critical(this, "Markdown Github", "Impossible d'ouvrir le fichier");
+        }
+
+    }
+    else
+    {
+        reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous créer un fichier markdown ?",
+                                      QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes){
+
+            fileName = QFileDialog::getSaveFileName(
+                this,
+                "Créer un fichier Markdown",
+                QDir::homePath() + "/nouveau_fichier.md",
+                "Fichiers Markdown (*.md)"
+                );
+
+            if (!fileName.isEmpty()) {
+                // Facultatif : s'assurer que l'extension .md est bien présente
+                if (!fileName.endsWith(".md", Qt::CaseInsensitive))
+                    fileName += ".md";
+
+                QFile file(fileName);
+                if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                    QTextStream out(&file);
+                    out << "";
+                    file.close();
+                    nameFile = fileName;
+                    ui->postite->setCurrentIndex(indexMain);
+                } else {
+                    QMessageBox::critical(this, "Github Markdown", "Impossible de créer le fichier !");
+                }
+            }else{
+                QMessageBox::critical(this, "Github Markdown", "Impossible de créer le fichier vide !");
+            }
+
+        }
+        else{
+            QMessageBox::warning(this,"Github Markdown","Votre contenu ne sera pas sauvegardé.");
+            ui->ZONETEXTE->clear();
+            ui->postite->setCurrentIndex(indexMain);
+        }
+    }
+}
+
+
+
+void CUIAPostite::on_IDC_GITHUBACCEUIL_clicked()
+{
+    on_IDC_MARKGITHUB_clicked();
+}
+
+
+void CUIAPostite::on_IDC_NEWACCEUIL_clicked()
+{
+    on_IDC_ADDFILEACCEUIL_clicked();
+}
+
+
+void CUIAPostite::on_IDC_PARAMETREMAINACCEUIL_clicked()
+{
+    ui->postite->setCurrentIndex(indexPara);
+    ui->IDC_RETOUR->setVisible(true);
 }
