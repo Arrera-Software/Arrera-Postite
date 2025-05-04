@@ -15,7 +15,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
     indexTableau = ui->postite->indexOf(ui->manageTableau);
-    indexAcceuil = ui->postite->indexOf(ui->pageFile);
+    indexFile = ui->postite->indexOf(ui->pageFile);
+    indexAcceuil = ui->postite->indexOf(ui->acceuil);
 
     // Index onglets
     indexOngletFichier = ui->tabonsere->indexOf(ui->Fichier);
@@ -40,7 +41,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     if (!fileExists("postite.ini"))
     {
         createFile();
-        ui->postite->setCurrentIndex(indexMain);
+        ui->postite->setCurrentIndex(indexAcceuil);
     }
     QSettings settings("postite.ini", QSettings::IniFormat);
     settings.beginGroup("postite");
@@ -48,11 +49,11 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     setColor();
     if (getEmplacement() == "null")
     {
-        ui->postite->setCurrentIndex(indexMain);
+        ui->postite->setCurrentIndex(indexAcceuil);
     }
     else{
         setViewFolder();
-        ui->postite->setCurrentIndex(indexAcceuil);
+        ui->postite->setCurrentIndex(indexFile);
     }
 
     // Set de l'ongets par default
@@ -163,11 +164,11 @@ void CUIAPostite::on_IDC_QUIT_clicked()
 {
     if (getEmplacement() == "null")
     {
-       close();
+       ui->postite->setCurrentIndex(indexAcceuil);
     }
     else
     {
-        ui->postite->setCurrentIndex(indexAcceuil);
+        ui->postite->setCurrentIndex(indexFile);
     }
 }
 
@@ -874,3 +875,21 @@ void CUIAPostite::on_IDC_MARKGITHUB_clicked()
 }
 
 
+
+void CUIAPostite::on_IDC_GITHUBACCEUIL_clicked()
+{
+    on_IDC_MARKGITHUB_clicked();
+}
+
+
+void CUIAPostite::on_IDC_NEWACCEUIL_clicked()
+{
+    on_IDC_ADDFILEACCEUIL_clicked();
+}
+
+
+void CUIAPostite::on_IDC_PARAMETREMAINACCEUIL_clicked()
+{
+    ui->postite->setCurrentIndex(indexPara);
+    ui->IDC_RETOUR->setVisible(true);
+}

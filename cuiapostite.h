@@ -127,10 +127,16 @@ private slots:
 
     void on_IDC_MARKGITHUB_clicked();
 
+    void on_IDC_GITHUBACCEUIL_clicked();
+
+    void on_IDC_NEWACCEUIL_clicked();
+
+    void on_IDC_PARAMETREMAINACCEUIL_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
-    int indexMain, indexPara,indexTableau,indexAcceuil ;
+    int indexMain, indexPara,indexTableau,indexFile,indexAcceuil ;
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
     QString typeFile;
