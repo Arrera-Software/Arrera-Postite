@@ -62,7 +62,7 @@
              <enum>QTabWidget::TabShape::Triangular</enum>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="Fichier">
              <attribute name="title">
@@ -208,8 +208,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>H1</string>
@@ -233,8 +236,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>H2</string>
@@ -258,8 +264,11 @@
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <bold>false</bold>
+                  <bold>true</bold>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>H3</string>
@@ -286,6 +295,9 @@
                   <bold>true</bold>
                   <kerning>false</kerning>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>B</string>
@@ -314,6 +326,9 @@
                   <kerning>false</kerning>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
+                </property>
                 <property name="text">
                  <string>I</string>
                 </property>
@@ -340,6 +355,9 @@
                   <strikeout>true</strikeout>
                   <kerning>false</kerning>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:#091bd4</string>
                 </property>
                 <property name="text">
                  <string>b</string>
