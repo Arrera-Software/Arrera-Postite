@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1007,7 +1007,30 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="IDC_MARKGITHUB">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="postitesrc.qrc">
+                <normaloff>:/img/github-md.png</normaloff>:/img/github-md.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="IDC_QUITACCEUIL">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>

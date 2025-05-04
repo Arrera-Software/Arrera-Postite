@@ -22,5 +22,6 @@
         <file>view.png</file>
         <file>editView.png</file>
         <file>code.png</file>
+        <file>github-md.png</file>
     </qresource>
 </RCC>
