@@ -125,12 +125,15 @@ private slots:
 
     void on_IDC_BTNVIEW_clicked();
 
+    void on_IDC_MARKGITHUB_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
     int indexMain, indexPara,indexTableau,indexAcceuil ;
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
+    QString typeFile;
     QSettings *settings;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();

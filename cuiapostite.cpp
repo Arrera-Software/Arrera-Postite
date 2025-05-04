@@ -9,6 +9,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     // Init des var
     model = new QFileSystemModel(this);
     nameFile = "";
+    typeFile = "ab";
 
     // Index Page
     indexMain = ui->postite->indexOf(ui->main);
@@ -583,6 +584,7 @@ void CUIAPostite::on_IDC_OPENOTHER_clicked()
 void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
 {
     bool ok;
+    typeFile = "ab";
     QString nom = "" , nomFichier = getEmplacement()+"/";
     ui->ZONETEXTE->clear();
     ui->postite->setCurrentIndex(indexMain);
@@ -787,4 +789,81 @@ void CUIAPostite::on_IDC_BTNVIEW_clicked()
     ui->ZONETEXTE->setVisible(false);
     ui->VIEWFILEMAKEDOWN->setVisible(true);
 }
+
+
+void CUIAPostite::on_IDC_MARKGITHUB_clicked()
+{
+    bool ok;
+    typeFile = "md";
+    QString fileName = "",contenuTextEdit="";
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous ouvrir un fichier markdown",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes){
+        while (fileName == ""){
+            fileName = QFileDialog::getOpenFileName(
+                this,
+                "Sélectionner un fichier Markdown",
+                QDir::homePath(), // Dossier de départ, ici le dossier utilisateur
+                "Fichiers Markdown (*.md)"
+                );
+        }
+        QFile file(fileName); // fileName : le chemin récupéré avec QFileDialog
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            QString contenuTextEdit = in.readAll();
+            ui->ZONETEXTE->setPlainText(contenuTextEdit);
+            file.close();
+            ui->postite->setCurrentIndex(indexMain);
+            nameFile = fileName;
+        } else {
+            QMessageBox::critical(this, "Erreur ouverture", "Impossible d'ouvrir le fichier");
+        }
+
+    }
+    else
+    {
+        reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous cree un fichier markdown ?",
+                                      QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes){
+
+            fileName = QFileDialog::getSaveFileName(
+                this,
+                "Créer un fichier Markdown",
+                QDir::homePath() + "/nouveau_fichier.md",
+                "Fichiers Markdown (*.md)"
+                );
+
+            if (!fileName.isEmpty()) {
+                // Facultatif : s'assurer que l'extension .md est bien présente
+                if (!fileName.endsWith(".md", Qt::CaseInsensitive))
+                    fileName += ".md";
+
+                QFile file(fileName);
+                if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                    QTextStream out(&file);
+                    out << "# Markdown";
+                    QTextStream in(&file);
+                    ui->ZONETEXTE->setPlainText(in.readAll());
+                    file.close();
+                    nameFile = fileName;
+                    ui->postite->setCurrentIndex(indexMain);
+                } else {
+                    QMessageBox::critical(this, "Github Markdown", "Impossible de créer le fichier !");
+                }
+            }else{
+                QMessageBox::critical(this, "Github Markdown", "Impossible de créer le fichier vide !");
+            }
+
+        }
+        else{
+            QMessageBox::warning(this,"Github Markdown","Votre contenu ne sera pas sauvegarder");
+            ui->ZONETEXTE->clear();
+            ui->postite->setCurrentIndex(indexMain);
+        }
+    }
+}
+
 
