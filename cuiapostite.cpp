@@ -68,20 +68,30 @@ void CUIAPostite::on_IDC_SAVE_clicked()
 {
     QString contenuTextEdit;
     QString nomFichier ;
-    if (!emplacementIsSet())
-    {
-        nomFichier=QFileDialog::getSaveFileName(nullptr,
-                                                  "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
-    }
-    else
-    {
-        nomFichier=QFileDialog::getSaveFileName(nullptr,
-                                                  "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
-    }
+    if (typeFile == "ab"){
+        if (!emplacementIsSet())
+        {
+            nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                      "Enregistrer le fichier", QDir::homePath(), "Fichier Pense-bete (*.ab)");
+        }
+        else
+        {
+            nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                      "Enregistrer le fichier", getEmplacement(), "Fichier Pense-bete (*.ab)");
+        }
 
-    // Vérifie si l'extension est manquante et l'ajoute si nécessaire
-    if (!nomFichier.endsWith(".ab", Qt::CaseInsensitive)) {
-        nomFichier += ".ab";
+        // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+        if (!nomFichier.endsWith(".ab", Qt::CaseInsensitive)) {
+            nomFichier += ".ab";
+        }
+    }else{
+        nomFichier=QFileDialog::getSaveFileName(nullptr,
+                                                  "Enregistrer le fichier", QDir::homePath(), "Fichiers Markdown (*.md)");
+
+        // Vérifie si l'extension est manquante et l'ajoute si nécessaire
+        if (!nomFichier.endsWith(".md", Qt::CaseInsensitive)) {
+            nomFichier += ".md";
+        }
     }
 
     QFile file(nomFichier);
@@ -793,12 +803,11 @@ void CUIAPostite::on_IDC_BTNVIEW_clicked()
 
 void CUIAPostite::on_IDC_MARKGITHUB_clicked()
 {
-    bool ok;
     typeFile = "md";
     QString fileName = "",contenuTextEdit="";
 
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous ouvrir un fichier markdown",
+    reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous ouvrir un fichier markdown ?",
                                   QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes){
         while (fileName == ""){
@@ -812,19 +821,19 @@ void CUIAPostite::on_IDC_MARKGITHUB_clicked()
         QFile file(fileName); // fileName : le chemin récupéré avec QFileDialog
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QTextStream in(&file);
-            QString contenuTextEdit = in.readAll();
+            contenuTextEdit = in.readAll();
             ui->ZONETEXTE->setPlainText(contenuTextEdit);
             file.close();
             ui->postite->setCurrentIndex(indexMain);
             nameFile = fileName;
         } else {
-            QMessageBox::critical(this, "Erreur ouverture", "Impossible d'ouvrir le fichier");
+            QMessageBox::critical(this, "Markdown Github", "Impossible d'ouvrir le fichier");
         }
 
     }
     else
     {
-        reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous cree un fichier markdown ?",
+        reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous créer un fichier markdown ?",
                                       QMessageBox::Yes | QMessageBox::No);
 
         if (reply == QMessageBox::Yes){
@@ -844,9 +853,7 @@ void CUIAPostite::on_IDC_MARKGITHUB_clicked()
                 QFile file(fileName);
                 if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
                     QTextStream out(&file);
-                    out << "# Markdown";
-                    QTextStream in(&file);
-                    ui->ZONETEXTE->setPlainText(in.readAll());
+                    out << "";
                     file.close();
                     nameFile = fileName;
                     ui->postite->setCurrentIndex(indexMain);
@@ -859,7 +866,7 @@ void CUIAPostite::on_IDC_MARKGITHUB_clicked()
 
         }
         else{
-            QMessageBox::warning(this,"Github Markdown","Votre contenu ne sera pas sauvegarder");
+            QMessageBox::warning(this,"Github Markdown","Votre contenu ne sera pas sauvegardé.");
             ui->ZONETEXTE->clear();
             ui->postite->setCurrentIndex(indexMain);
         }
