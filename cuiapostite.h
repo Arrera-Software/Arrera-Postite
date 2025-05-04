@@ -95,6 +95,36 @@ private slots:
 
     void on_IDC_CANCELTABLEAU_clicked();
 
+    void openFileTreeView(const QModelIndex &index);
+
+    void on_IDC_PARAMETREACCEUIL_clicked();
+
+    void on_IDC_QUITACCEUIL_clicked();
+
+    void on_IDC_OPENOTHER_clicked();
+
+    void on_IDC_ADDFILEACCEUIL_clicked();
+
+    void onTextChanged();
+
+    void on_IDC_3X3_clicked();
+
+    void on_IDC_6X6_clicked();
+
+    void on_IDC_10X10_clicked();
+
+    void on_IDC_OTHER_clicked();
+
+    void on_IDC_SAVEHTML_clicked();
+
+    void on_IDC_INSERECODE_clicked();
+
+    void on_IDC_BTNEDITVIEW_clicked();
+
+    void on_IDC_BTNEDIT_clicked();
+
+    void on_IDC_BTNVIEW_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
@@ -111,21 +141,6 @@ private:
     QShortcut *shortcutOpen;
     QShortcut *shortcutSave;
     QShortcut *shortcutNew;
-private slots:
-    void openFileTreeView(const QModelIndex &index);
-    void on_IDC_PARAMETREACCEUIL_clicked();
-    void on_IDC_QUITACCEUIL_clicked();
-    void on_IDC_OPENOTHER_clicked();
-    void on_IDC_ADDFILEACCEUIL_clicked();
-    void onTextChanged();
-    void on_IDC_3X3_clicked();
-    void on_IDC_6X6_clicked();
-    void on_IDC_10X10_clicked();
-    void on_IDC_OTHER_clicked();
-    void on_IDC_SAVEHTML_clicked();
-    void on_IDC_INSERECODE_clicked();
-    void on_IDC_BTNEDITVIEW_clicked();
-    void on_IDC_BTNEDIT_clicked();
-    void on_IDC_BTNVIEW_clicked();
+
 };
 #endif // CUIAPOSTITE_H

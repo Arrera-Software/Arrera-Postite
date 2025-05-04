@@ -6,7 +6,9 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite)
 {
     ui->setupUi(this);
+    // Init des var
     model = new QFileSystemModel(this);
+    nameFile = "";
 
     // Index Page
     indexMain = ui->postite->indexOf(ui->main);
@@ -33,10 +35,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_SAVE_clicked);
     connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_OPEN_clicked);
 
-    nameFile = "";
-
-    ui->tabonsere->setCurrentIndex(indexOngletFichier);
-
+    // Partie parametre
     if (!fileExists("postite.ini"))
     {
         createFile();
@@ -54,6 +53,9 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         setViewFolder();
         ui->postite->setCurrentIndex(indexAcceuil);
     }
+
+    // Set de l'ongets par default
+    ui->tabonsere->setCurrentIndex(indexOngletFichier);
 }
 
 CUIAPostite::~CUIAPostite()
