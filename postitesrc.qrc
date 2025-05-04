@@ -26,5 +26,6 @@
         <file>edit.png</file>
         <file>view.png</file>
         <file>editView.png</file>
+        <file>code.png</file>
     </qresource>
 </RCC>

@@ -62,7 +62,7 @@
              <enum>QTabWidget::TabShape::Triangular</enum>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="Fichier">
              <attribute name="title">
@@ -744,6 +744,10 @@
                 </property>
                 <property name="text">
                  <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="postitesrc.qrc">
+                  <normaloff>:/img/code.png</normaloff>:/img/code.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
