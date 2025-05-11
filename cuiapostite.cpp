@@ -4,7 +4,8 @@
 CUIAPostite::CUIAPostite(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CUIAPostite),
-    tigerDemon("https://arrera-software.fr/depots.json","arrera-postite",this)
+    tigerDemon("https://arrera-software.fr/depots.json","arrera-postite",this),
+    winUpdate(this)
 {
     ui->setupUi(this);
     // Init des var
@@ -64,6 +65,14 @@ CUIAPostite::CUIAPostite(QWidget *parent)
 
     // Mise en place de l'affichage du numero de version
     ui->IDC_VERSION->setText(tigerDemon.getVersionSoft());
+}
+
+void CUIAPostite::show(){
+    QMainWindow::show();
+
+    if (tigerDemon.checkUpdate()){
+        winUpdate.show();
+    }
 }
 
 CUIAPostite::~CUIAPostite()

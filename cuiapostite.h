@@ -19,6 +19,7 @@
 #include <QKeySequence>
 #include <QDesktopServices>
 #include <ctigerdemon.h>
+#include "windowsupdate.h"
 
 // Partie debug
 #include <iostream>
@@ -36,6 +37,7 @@ class CUIAPostite : public QMainWindow
 
 public:
     CUIAPostite(QWidget *parent = nullptr);
+    void show();
     ~CUIAPostite();
 
 private slots:
@@ -154,6 +156,7 @@ private:
     QString typeFile;
     QSettings *settings;
     CTigerDemon tigerDemon;
+    WindowsUpdate winUpdate;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);

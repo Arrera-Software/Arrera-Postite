@@ -12,15 +12,18 @@ SOURCES += \
     ctigerdemon.cpp \
     main.cpp \
     cuiapostite.cpp \
-    mytextedit.cpp
+    mytextedit.cpp \
+    windowsupdate.cpp
 
 HEADERS += \
     ctigerdemon.h \
     cuiapostite.h \
-    mytextedit.h
+    mytextedit.h \
+    windowsupdate.h
 
 FORMS += \
-    cuiapostite.ui
+    cuiapostite.ui \
+    windowsupdate.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

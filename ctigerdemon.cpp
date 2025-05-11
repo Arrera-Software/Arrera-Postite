@@ -53,7 +53,7 @@ bool CTigerDemon::checkUpdate(){
     QString lastVersion = contenuJSON["version"].toString();
 
     if (versionInstalled != "IXXXX-XXX"){
-        if (versionInstalled != lastVersion){
+        if (versionInstalled != lastVersion && versionInstalled != "error"){
             return true;
         }else{
             return false;
