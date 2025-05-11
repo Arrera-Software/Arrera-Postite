@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>5</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1028,6 +1028,10 @@
               <property name="text">
                <string/>
               </property>
+              <property name="icon">
+               <iconset resource="postitesrc.qrc">
+                <normaloff>:/img/apropos.png</normaloff>:/img/apropos.png</iconset>
+              </property>
               <property name="iconSize">
                <size>
                 <width>40</width>
@@ -1584,6 +1588,10 @@
             </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="postitesrc.qrc">
+              <normaloff>:/img/apropos.png</normaloff>:/img/apropos.png</iconset>
             </property>
             <property name="iconSize">
              <size>
