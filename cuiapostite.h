@@ -18,6 +18,7 @@
 #include <QShortcut>
 #include <QKeySequence>
 #include <QDesktopServices>
+#include <ctigerdemon.h>
 
 // Partie debug
 #include <iostream>
@@ -152,6 +153,7 @@ private:
     QString color,nameFile;
     QString typeFile;
     QSettings *settings;
+    CTigerDemon tigerDemon;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);
