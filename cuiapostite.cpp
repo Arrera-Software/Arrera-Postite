@@ -10,6 +10,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     model = new QFileSystemModel(this);
     nameFile = "";
     typeFile = "ab";
+    pageApropos = 0;
 
     // Index Page
     indexMain = ui->postite->indexOf(ui->main);
@@ -17,6 +18,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     indexTableau = ui->postite->indexOf(ui->manageTableau);
     indexFile = ui->postite->indexOf(ui->pageFile);
     indexAcceuil = ui->postite->indexOf(ui->acceuil);
+    indexApropos = ui->postite->indexOf(ui->apropos);
 
     // Index onglets
     indexOngletFichier = ui->tabonsere->indexOf(ui->Fichier);
@@ -893,3 +895,43 @@ void CUIAPostite::on_IDC_PARAMETREMAINACCEUIL_clicked()
     ui->postite->setCurrentIndex(indexPara);
     ui->IDC_RETOUR->setVisible(true);
 }
+
+void CUIAPostite::on_IDC_CODESOURCE_clicked()
+{
+    QUrl url("https://github.com/Arrera-Software/Arrera-Postite");
+    QDesktopServices::openUrl(url);
+}
+
+
+void CUIAPostite::on_IDC_SITEWEB_clicked()
+{
+    QUrl url("https://www.arrera-software.fr/");
+    QDesktopServices::openUrl(url);
+}
+
+
+void CUIAPostite::on_IDC_APROPOS1_clicked()
+{
+    pageApropos = 1 ;
+    ui->postite->setCurrentIndex(indexApropos);
+}
+
+
+void CUIAPostite::on_IDC_APROPOS2_clicked()
+{
+    pageApropos = 2;
+    ui->postite->setCurrentIndex(indexApropos);
+}
+
+
+void CUIAPostite::on_IDC_EXITAPROPOS_clicked()
+{
+    if (pageApropos == 1){
+        ui->postite->setCurrentIndex(indexFile);
+    }else if (pageApropos == 2){
+        ui->postite->setCurrentIndex(indexAcceuil);
+    } else {
+        ui->postite->setCurrentIndex(indexAcceuil);
+    }
+}
+

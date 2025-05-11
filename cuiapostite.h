@@ -17,6 +17,7 @@
 #include <QInputDialog>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QDesktopServices>
 
 // Partie debug
 #include <iostream>
@@ -133,10 +134,20 @@ private slots:
 
     void on_IDC_PARAMETREMAINACCEUIL_clicked();
 
+    void on_IDC_CODESOURCE_clicked();
+
+    void on_IDC_SITEWEB_clicked();
+
+    void on_IDC_APROPOS1_clicked();
+
+    void on_IDC_APROPOS2_clicked();
+
+    void on_IDC_EXITAPROPOS_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
-    int indexMain, indexPara,indexTableau,indexFile,indexAcceuil ;
+    int indexMain, indexPara,indexTableau,indexFile,indexAcceuil,indexApropos,pageApropos ;
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
     QString typeFile;
