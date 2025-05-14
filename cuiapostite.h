@@ -20,6 +20,7 @@
 #include <QDesktopServices>
 #include <ctigerdemon.h>
 #include "windowsupdate.h"
+#include "carreraclient.h"
 
 // Partie debug
 #include <iostream>
@@ -157,6 +158,7 @@ private:
     QSettings *settings;
     CTigerDemon tigerDemon;
     WindowsUpdate winUpdate;
+    CArreraClient socket;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);
@@ -166,6 +168,7 @@ private:
     QShortcut *shortcutOpen;
     QShortcut *shortcutSave;
     QShortcut *shortcutNew;
+    bool traitementSocket(const QString& message);
 
 };
 #endif // CUIAPOSTITE_H
