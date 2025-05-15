@@ -67,20 +67,14 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     // Mise en place de l'affichage du numero de version
     ui->IDC_VERSION->setText(tigerDemon.getVersionSoft());
 
+    /*
     // Initilisation de socket
     if (socket.connectToServeur("ws://127.0.0.1:12345")){
-
-        connect(&socket, &CArreraClient::connectionEstablished, [this]() {
-            if (socket.sendMessage("Je suis le client"))
-                cout << "Message envoyé" << endl;
-            else
-                cout << "Erreur: Impossible d'envoyer le message" << endl;
-        });
 
         connect(&socket, &CArreraClient::messageReceived, [this](const QString& message) {
             traitementSocket(message);
         });
-    }
+    }*/
 }
 
 void CUIAPostite::show(){
@@ -965,8 +959,9 @@ void CUIAPostite::on_IDC_EXITAPROPOS_clicked()
 }
 
 bool CUIAPostite::traitementSocket(const QString& message){
-    if (message.contains("read")){
-        socket.sendMessage("contenu : "+ui->ZONETEXTE->toPlainText());
+    if (message.contains("stop")){
+        delete ui;
+        return true;
     }
     else{
         return false;
