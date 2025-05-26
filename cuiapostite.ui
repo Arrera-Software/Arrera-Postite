@@ -475,6 +475,16 @@
                 <property name="text">
                  <string/>
                 </property>
+                <property name="icon">
+                 <iconset resource="postitesrc.qrc">
+                  <normaloff>:/img/onglets.png</normaloff>:/img/onglets.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
                </widget>
               </item>
              </layout>
