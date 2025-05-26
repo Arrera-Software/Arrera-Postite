@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     carreraclient.cpp \
     ctigerdemon.cpp \
+    fenetreview.cpp \
     main.cpp \
     cuiapostite.cpp \
     mytextedit.cpp \
@@ -20,11 +21,13 @@ HEADERS += \
     carreraclient.h \
     ctigerdemon.h \
     cuiapostite.h \
+    fenetreview.h \
     mytextedit.h \
     windowsupdate.h
 
 FORMS += \
     cuiapostite.ui \
+    fenetreview.ui \
     windowsupdate.ui
 
 # Default rules for deployment.

@@ -6,7 +6,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite),
     tigerDemon("https://arrera-software.fr/depots.json","arrera-postite",this),
     winUpdate(this),
-    socket(this,"arrera-postite")
+    socket(this,"arrera-postite"),
+    viewWindows(this)
 {
     ui->setupUi(this);
     // Init des var
@@ -14,7 +15,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     nameFile = "";
     typeFile = "ab";
     pageApropos = 0;
-
+    viewOpen = false;
     // Index Page
     indexMain = ui->postite->indexOf(ui->main);
     indexPara = ui->postite->indexOf(ui->para);
@@ -41,7 +42,9 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     connect(shortcutNew, &QShortcut::activated, this,&CUIAPostite::on_IDC_NEW_clicked);
     connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_SAVE_clicked);
     connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_OPEN_clicked);
-
+    // Fenetre fille
+    connect(this, &QObject::destroyed, &viewWindows, &QWidget::close);
+    connect(&viewWindows, &fenetreView::closeSignal , this, &CUIAPostite::closeOnglets);
     // Partie parametre
     if (!fileExists("postite.ini"))
     {
@@ -735,6 +738,7 @@ void CUIAPostite::onTextChanged()
                                 </style>
                                 </head><body>)";
         ui->VIEWFILEMAKEDOWN->setHtml(styledHtml+html+"</body>");
+        viewWindows.updateText(styledHtml+html+"</body>");
     }
 
     ui->VIEWFILEMAKEDOWN->setReadOnly(true);
@@ -808,22 +812,28 @@ void CUIAPostite::on_IDC_INSERECODE_clicked()
 
 void CUIAPostite::on_IDC_BTNEDITVIEW_clicked()
 {
-    ui->ZONETEXTE->setVisible(true);
-    ui->VIEWFILEMAKEDOWN->setVisible(true);
+    if (!viewOpen){
+        ui->ZONETEXTE->setVisible(true);
+        ui->VIEWFILEMAKEDOWN->setVisible(true);
+    }
 }
 
 
 void CUIAPostite::on_IDC_BTNEDIT_clicked()
 {
-    ui->ZONETEXTE->setVisible(true);
-    ui->VIEWFILEMAKEDOWN->setVisible(false);
+    if (!viewOpen){
+        ui->ZONETEXTE->setVisible(true);
+        ui->VIEWFILEMAKEDOWN->setVisible(false);
+    }
 }
 
 
 void CUIAPostite::on_IDC_BTNVIEW_clicked()
 {
-    ui->ZONETEXTE->setVisible(false);
-    ui->VIEWFILEMAKEDOWN->setVisible(true);
+    if (!viewOpen){
+        ui->ZONETEXTE->setVisible(false);
+        ui->VIEWFILEMAKEDOWN->setVisible(true);
+    }
 }
 
 
@@ -966,4 +976,18 @@ bool CUIAPostite::traitementSocket(const QString& message){
     else{
         return false;
     }
+}
+
+void CUIAPostite::on_IDC_ONGLET_clicked()
+{
+    if (!viewOpen){
+        ui->VIEWFILEMAKEDOWN->setVisible(false);
+        viewWindows.show();
+        viewOpen = true;
+    }
+}
+
+void CUIAPostite::closeOnglets(){
+    ui->VIEWFILEMAKEDOWN->setVisible(true);
+    viewOpen = false;
 }

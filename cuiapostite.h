@@ -21,6 +21,7 @@
 #include <ctigerdemon.h>
 #include "windowsupdate.h"
 #include "carreraclient.h"
+#include "fenetreview.h"
 
 // Partie debug
 #include <iostream>
@@ -148,6 +149,8 @@ private slots:
 
     void on_IDC_EXITAPROPOS_clicked();
 
+    void on_IDC_ONGLET_clicked();
+
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
@@ -158,6 +161,8 @@ private:
     QSettings *settings;
     CTigerDemon tigerDemon;
     WindowsUpdate winUpdate;
+    fenetreView viewWindows;
+    bool viewOpen;
     CArreraClient socket;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
@@ -169,6 +174,7 @@ private:
     QShortcut *shortcutSave;
     QShortcut *shortcutNew;
     bool traitementSocket(const QString& message);
+    void closeOnglets();
 
 };
 #endif // CUIAPOSTITE_H
