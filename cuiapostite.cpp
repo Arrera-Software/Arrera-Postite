@@ -210,6 +210,10 @@ void CUIAPostite::on_IDC_OPEN_clicked()
         nomFichier = QFileDialog::getOpenFileName(this,
                                                   "Choisir un fichier à ouvrir",
                                                   QDir::homePath(), "Fichier Pense-bete (*.ab)");
+
+        if (nomFichier.isEmpty()){
+            return ;
+        }
     }
     QFile fichier(nomFichier);
     if (fichier.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -846,14 +850,18 @@ void CUIAPostite::on_IDC_MARKGITHUB_clicked()
     reply = QMessageBox::question(this, "Markdown Github", "Voulez-vous ouvrir un fichier markdown ?",
                                   QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes){
-        while (fileName == ""){
-            fileName = QFileDialog::getOpenFileName(
-                this,
-                "Sélectionner un fichier Markdown",
-                QDir::homePath(), // Dossier de départ, ici le dossier utilisateur
-                "Fichiers Markdown (*.md)"
-                );
+
+        fileName = QFileDialog::getOpenFileName(
+            this,
+            "Sélectionner un fichier Markdown",
+            QDir::homePath(),
+            "Fichiers Markdown (*.md)"
+            );
+
+        if (fileName.isEmpty()) {
+            return;
         }
+
         QFile file(fileName); // fileName : le chemin récupéré avec QFileDialog
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QTextStream in(&file);
