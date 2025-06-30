@@ -51,9 +51,15 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         createFile();
         ui->postite->setCurrentIndex(indexAcceuil);
     }
-    QSettings settings("postite.ini", QSettings::IniFormat);
+    if (CDetectionOS().getosApple()){
+        QSettings settings(QSettings::NativeFormat, QSettings::UserScope,
+                           "arrera-software", "postiste");
+    }else{
+        QSettings settings("postite.ini", QSettings::IniFormat);
+    }
     settings.beginGroup("postite");
     color = settings.value("color").toString();
+
     setColor();
     if (getEmplacement() == "null")
     {

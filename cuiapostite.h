@@ -22,6 +22,7 @@
 #include "windowsupdate.h"
 #include "carreraclient.h"
 #include "fenetreview.h"
+#include "cdetectionos.h"
 
 // Partie debug
 #include <iostream>
@@ -158,7 +159,7 @@ private:
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
     QString typeFile;
-    QSettings *settings;
+    QSettings settings;
     CTigerDemon tigerDemon;
     WindowsUpdate winUpdate;
     fenetreView viewWindows;
