@@ -6,8 +6,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite),
     tigerDemon("https://arrera-software.fr/depots.json","arrera-postite",this),
     winUpdate(this),
-    socket(this,"arrera-postite"),
-    viewWindows(this)
+    viewWindows(this),
+    socket(this,"arrera-postite")
 {
     ui->setupUi(this);
     // Init des var
