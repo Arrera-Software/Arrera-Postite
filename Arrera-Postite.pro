@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     carreraclient.cpp \
+    cdetectionos.cpp \
     ctigerdemon.cpp \
     fenetreview.cpp \
     main.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     carreraclient.h \
+    cdetectionos.h \
     ctigerdemon.h \
     cuiapostite.h \
     fenetreview.h \
