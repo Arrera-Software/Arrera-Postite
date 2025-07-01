@@ -46,17 +46,20 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     connect(this, &QObject::destroyed, &viewWindows, &QWidget::close);
     connect(&viewWindows, &fenetreView::closeSignal , this, &CUIAPostite::closeOnglets);
     // Partie parametre
-    if (!fileExists("postite.ini"))
-    {
-        createFile();
-        ui->postite->setCurrentIndex(indexAcceuil);
-    }
     if (CDetectionOS().getosApple()){
         QSettings settings(QSettings::NativeFormat, QSettings::UserScope,
                            "arrera-software", "postiste");
     }else{
+
+        if (!fileExists("postite.ini"))
+        {
+            createFile();
+            ui->postite->setCurrentIndex(indexAcceuil);
+        }
+
         QSettings settings("postite.ini", QSettings::IniFormat);
     }
+
     settings.beginGroup("postite");
     color = settings.value("color").toString();
 
