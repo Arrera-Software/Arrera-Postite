@@ -26,4 +26,7 @@
         <file>apropos.png</file>
         <file>onglets.png</file>
     </qresource>
+    <qresource prefix="/style">
+        <file>MacOS.qss</file>
+    </qresource>
 </RCC>
