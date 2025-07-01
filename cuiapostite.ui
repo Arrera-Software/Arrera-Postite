@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="postite">
       <property name="currentIndex">
-       <number>7</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -59,10 +59,10 @@
              <enum>QTabWidget::TabPosition::South</enum>
             </property>
             <property name="tabShape">
-             <enum>QTabWidget::TabShape::Triangular</enum>
+             <enum>QTabWidget::TabShape::Rounded</enum>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="Fichier">
              <attribute name="title">
@@ -382,7 +382,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>40</width>
-                  <height>39</height>
+                  <height>40</height>
                  </size>
                 </property>
                 <property name="text">
@@ -394,8 +394,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>40</width>
-                  <height>40</height>
+                  <width>35</width>
+                  <height>35</height>
                  </size>
                 </property>
                </widget>
@@ -423,8 +423,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>40</width>
-                  <height>40</height>
+                  <width>35</width>
+                  <height>35</height>
                  </size>
                 </property>
                </widget>
@@ -452,8 +452,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>80</width>
-                  <height>40</height>
+                  <width>75</width>
+                  <height>35</height>
                  </size>
                 </property>
                </widget>
@@ -481,8 +481,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>40</width>
-                  <height>40</height>
+                  <width>35</width>
+                  <height>35</height>
                  </size>
                 </property>
                </widget>
