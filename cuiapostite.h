@@ -42,6 +42,7 @@ public:
     CUIAPostite(QWidget *parent = nullptr);
     void show();
     ~CUIAPostite();
+    CDetectionOS osDect;
 
 private slots:
     void on_IDC_SAVE_clicked();

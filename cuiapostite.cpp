@@ -6,6 +6,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     , ui(new Ui::CUIAPostite),
     tigerDemon("https://arrera-software.fr/depots.json","arrera-postite",this),
     winUpdate(this),
+    osDect(),
     viewWindows(this),
     socket(this,"arrera-postite")
 {
@@ -46,7 +47,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     connect(this, &QObject::destroyed, &viewWindows, &QWidget::close);
     connect(&viewWindows, &fenetreView::closeSignal , this, &CUIAPostite::closeOnglets);
     // Partie parametre
-    if (CDetectionOS().getosApple()){
+    if (osDect.getosApple()){
         QSettings settings(QSettings::NativeFormat, QSettings::UserScope,
                            "arrera-software", "postiste");
     }else{
@@ -87,6 +88,15 @@ CUIAPostite::CUIAPostite(QWidget *parent)
             traitementSocket(message);
         });
     }*/
+
+    if (osDect.getosApple()){
+        QFile styleFile(":/style/MacOS.qss");
+        if (styleFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+            viewWindows.setStyleSheet(QString::fromUtf8(styleFile.readAll()));
+            styleFile.close();
+        }
+    }
+
 }
 
 void CUIAPostite::show(){
