@@ -284,12 +284,12 @@ QMenu::item {
     background-color: #e0e0e0;
 }
 QTabWidget {
-    color:rgb(0,0,0);
-    background-color:#000000;
+    color:#000000;
+    background-color:#ffffff;
 }
 QTabWidget::pane {
-    border-color: #050a0e;
-    background-color: #e0e0e0;
+    border-color: #000000;
+    background-color: #ffffff;
     border-width: 1px;
     border-radius: 4px;
     position: absolute;
