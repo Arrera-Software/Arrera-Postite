@@ -2,6 +2,10 @@ QMainWindow {
     background-color:#ffffff;
 }
 
+QDialog{
+    background-color:#ffffff;
+}
+
 QPushButton, QToolButton, QCommandLinkButton{
     padding: 0 5px 0 5px;
     border-style: solid;
