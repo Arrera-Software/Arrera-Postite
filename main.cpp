@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     CUIAPostite w;
-    if (CDetectionOS().getosApple()){
+    if (w.osDect.getosApple()){
         QFile styleFile(":/style/MacOS.qss");
         if (styleFile.open(QIODevice::ReadOnly | QIODevice::Text)){
             w.setStyleSheet(QString::fromUtf8(styleFile.readAll()));
