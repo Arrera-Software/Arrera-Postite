@@ -39,3 +39,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     postitesrc.qrc
+
+macx{
+    ICON = arrera-postiste.icns
+}
