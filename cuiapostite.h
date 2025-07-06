@@ -19,7 +19,7 @@
 #include <QKeySequence>
 #include <QDesktopServices>
 #include <ctigerdemon.h>
-#include <QStandardPaths>
+#include <csetting.h>
 #include "windowsupdate.h"
 #include "carreraclient.h"
 #include "fenetreview.h"
@@ -59,10 +59,6 @@ private slots:
     void on_IDC_RETOUR_clicked();
 
     void on_IDC_SETEMPLACEMENT_clicked();
-
-    bool fileExists(const QString &filePath);
-
-    void createFile();
 
     bool emplacementIsSet();
 
@@ -161,7 +157,7 @@ private:
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;
     QString typeFile;
-    QSettings settings;
+    CSetting settings;
     CTigerDemon tigerDemon;
     WindowsUpdate winUpdate;
     fenetreView viewWindows;

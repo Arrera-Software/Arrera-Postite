@@ -20,32 +20,7 @@ public:
     CSetting();
 
     // Constructeur avec le fichier
-    CSetting(const QString &namesoft) {
-
-        int os = checkOS();
-        QString file;
-
-        if (os == 3){
-            file = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/.config/";
-        }
-
-        QFileInfo checkFile(file);
-
-        if (!checkFile.exists()) {
-            // Si le fichier n'existe pas, on le crée
-            QFile newFile(file);
-            if (newFile.open(QIODevice::WriteOnly)) {  // Crée et vide le fichier
-                newFile.close();
-            }
-            fileCreated = true;
-        }
-        else{
-            fileCreated = false;
-        }
-
-        settings = new QSettings(file, QSettings::IniFormat);
-        fileOpen = true;
-    }
+    CSetting(const QString &namesoft);
 
     // Méthode pour obtenir l'état de création du fichier
     bool getFileCreated() const;

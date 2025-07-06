@@ -10,14 +10,15 @@ CSetting::CSetting(const QString &namesoft) {
     if (os == 3){
         file = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+
                "/.config/"+namesoft+".ini";
+    }else{
+        file = namesoft+".ini";
     }
 
     QFileInfo checkFile(file);
 
     if (!checkFile.exists()) {
-        // Si le fichier n'existe pas, on le crée
         QFile newFile(file);
-        if (newFile.open(QIODevice::WriteOnly)) {  // Crée et vide le fichier
+        if (newFile.open(QIODevice::WriteOnly)) {
             newFile.close();
         }
         fileCreated = true;

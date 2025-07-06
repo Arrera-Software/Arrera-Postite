@@ -8,7 +8,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     winUpdate(this),
     osDect(),
     viewWindows(this),
-    socket(this,"arrera-postite")
+    socket(this,"arrera-postite"),
+    settings("arrera-postite")
 {
     ui->setupUi(this);
     // Init des var
@@ -53,26 +54,12 @@ CUIAPostite::CUIAPostite(QWidget *parent)
 
     // Partie parametre
 
-    if (osDect.getosApple()){
-        cheminIni = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/.config/postite.ini";
-    }else{
-        cheminIni = "postite.ini";
-    }
-
-    if (!fileExists(cheminIni))
-    {
-        createFile();
+    if (settings.getFileCreated()){
+        settings.setValeur("postite","emplacement","null");
+        settings.setValeur("postite","color", "white");
         ui->postite->setCurrentIndex(indexAcceuil);
     }
-
-    settings(cheminIni, QSettings::IniFormat);
-
-    settings.beginGroup("postite");
-    color = settings.value("color").toString();
-
-    setColor();
-
-    if (getEmplacement() == "null")
+    else if (getEmplacement() == "null")
     {
         ui->postite->setCurrentIndex(indexAcceuil);
     }
@@ -272,36 +259,10 @@ void CUIAPostite::on_IDC_SETEMPLACEMENT_clicked()
     }
     else
     {
-        QSettings settings("postite.ini", QSettings::IniFormat);
-        settings.beginGroup("postite");
-        settings.setValue("emplacement", folder);
-        settings.endGroup();
+        settings.setValeur("postite","emplacement", folder);
         QMessageBox::information(this,"Arrera Postite","Dossier enregistrer");
     }
     setViewFolder();
-}
-
-bool CUIAPostite::fileExists(const QString &filePath)
-{
-    QFile file(filePath);
-    return file.exists();
-}
-
-void CUIAPostite::createFile()
-{
-    QString cheminIni;
-
-    if (osDect.getosApple()){
-        cheminIni = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/.config/postite.ini";
-    }else{
-        cheminIni = "postite.ini";
-    }
-
-    settings(cheminIni, QSettings::IniFormat);
-    settings.beginGroup("postite");
-    settings.setValue("emplacement", "null");
-    settings.setValue("color", "white");
-    settings.endGroup();
 }
 
 bool CUIAPostite::emplacementIsSet()
@@ -311,31 +272,23 @@ bool CUIAPostite::emplacementIsSet()
 
 QString CUIAPostite::getEmplacement()
 {
-    QString var ;
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    var = settings.value("emplacement").toString();
-    settings.endGroup();
-    return var;
+    return settings.getValeur("postite","emplacement");
 }
 
 void CUIAPostite::on_IDC_SETCOLOR_clicked()
 {
-    QSettings settings("postite.ini", QSettings::IniFormat);
-    settings.beginGroup("postite");
-    color = settings.value("color").toString();
+
+    QString color = settings.getValeur("postite","color");
 
     if (color == "white"){
-        settings.setValue("color", "black");
+        settings.setValeur("postite","color","black");
         color = "black";
         setColor();
     }else{
-        settings.setValue("color", "white");
+        settings.setValeur("postite","color", "white");
         color = "white";
         setColor();
     }
-
-    settings.endGroup();
     ui->postite->setCurrentIndex(indexMain);
     onTextChanged();
 }
