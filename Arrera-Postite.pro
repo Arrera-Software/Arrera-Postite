@@ -42,4 +42,11 @@ RESOURCES += \
 
 macx{
     ICON = arrera-postiste.icns
+
+    QMAKE_INFO_PLIST = Info.plist
+
+    DISTFILES += \
+        Info.plist
 }
+
+

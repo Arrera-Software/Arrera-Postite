@@ -46,7 +46,12 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     // Fenetre fille
     connect(this, &QObject::destroyed, &viewWindows, &QWidget::close);
     connect(&viewWindows, &fenetreView::closeSignal , this, &CUIAPostite::closeOnglets);
+
+    // Demarage sur la page d'acceuil direct
+    ui->postite->setCurrentIndex(indexAcceuil);
+
     // Partie parametre
+
     if (osDect.getosApple()){
         QSettings settings(QSettings::NativeFormat, QSettings::UserScope,
                            "arrera-software", "postiste");
@@ -65,6 +70,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     color = settings.value("color").toString();
 
     setColor();
+
     if (getEmplacement() == "null")
     {
         ui->postite->setCurrentIndex(indexAcceuil);
@@ -72,6 +78,15 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     else{
         setViewFolder();
         ui->postite->setCurrentIndex(indexFile);
+    }
+
+    if (!settings.contains("emplacement")) {
+        QMessageBox::warning(this, "Erreur", "Aucune configuration détectée !");
+        settings.beginGroup("postite");
+        settings.setValue("color","null");
+        settings.setValue("emplacement","null");
+        settings.endGroup();
+        settings.sync();
     }
 
     // Set de l'ongets par default

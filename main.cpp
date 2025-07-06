@@ -4,6 +4,9 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setOrganizationName("arrera");
+    QCoreApplication::setApplicationName("Arrera-Postite");
+
     QApplication a(argc, argv);
     CUIAPostite w;
     if (w.osDect.getosApple()){
