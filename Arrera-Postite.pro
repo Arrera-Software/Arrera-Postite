@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     carreraclient.cpp \
     cdetectionos.cpp \
+    csetting.cpp \
     ctigerdemon.cpp \
     fenetreview.cpp \
     main.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     carreraclient.h \
     cdetectionos.h \
+    csetting.h \
     ctigerdemon.h \
     cuiapostite.h \
     fenetreview.h \
@@ -42,16 +44,4 @@ RESOURCES += \
 
 macx{
     ICON = arrera-postiste.icns
-
-    # Fichier ressource pour le bundle Mac
-    QMAKE_BUNDLE_DATA += iniModel
-
-    iniModel.files = postite.ini      # chemin relatif dans le projet
-    iniModel.path = Resources                 # cible = Contents/Resources dans .app
-
 }
-
-DISTFILES += \
-    postite.ini
-
-
