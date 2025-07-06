@@ -1,6 +1,5 @@
 #include "ctigerdemon.h"
-#include <iostream>
-using namespace std;
+
 
 
 CTigerDemon::CTigerDemon(const QString& url, const QString& nameSoft, QObject* parent)
@@ -30,22 +29,7 @@ CTigerDemon::CTigerDemon(const QString& url, const QString& nameSoft, QObject* p
 QString CTigerDemon::getVersionSoft(){
     QString versionInstalled;
 
-    QFile file("VERSION");
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            if (line.startsWith("VERSION=")) {
-                QString version = line.mid(QString("VERSION=").length()).trimmed();
-                versionInstalled = version;
-                break;
-            }
-        }
-        file.close();
-        return versionInstalled;
-    }else{
-        return "error";
-    }
+    return fileversion.getVersion();
 }
 
 bool CTigerDemon::checkUpdate(){
@@ -53,7 +37,7 @@ bool CTigerDemon::checkUpdate(){
     QString lastVersion = contenuJSON["version"].toString();
 
     if (versionInstalled != "IXXXX-XXX"){
-        if (versionInstalled != lastVersion && versionInstalled != "error"){
+        if (versionInstalled != lastVersion){
             return true;
         }else{
             return false;

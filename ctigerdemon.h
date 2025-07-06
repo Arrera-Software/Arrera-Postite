@@ -8,10 +8,14 @@
 #include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <iostream>
 #include <QEventLoop>
 #include <QFile>
 #include <QTextStream>
+#include "version.h"
+
+// Debug
+#include <iostream>
+using namespace std;
 
 class CTigerDemon : public QObject
 {
@@ -23,6 +27,7 @@ public:
 private:
     QNetworkAccessManager* manager;
     QJsonObject contenuJSON;
+    version fileversion;
 };
 
 #endif // CTIGERDEMON_H

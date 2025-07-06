@@ -27,6 +27,7 @@ HEADERS += \
     cuiapostite.h \
     fenetreview.h \
     mytextedit.h \
+    version.h \
     windowsupdate.h
 
 FORMS += \
