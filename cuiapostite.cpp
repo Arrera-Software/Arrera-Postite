@@ -65,7 +65,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         ui->postite->setCurrentIndex(indexAcceuil);
     }
 
-    QSettings settings("postite.ini", QSettings::IniFormat);
+    settings(cheminIni, QSettings::IniFormat);
 
     settings.beginGroup("postite");
     color = settings.value("color").toString();
