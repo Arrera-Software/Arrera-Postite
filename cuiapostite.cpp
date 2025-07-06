@@ -8,7 +8,6 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     winUpdate(this),
     osDect(),
     viewWindows(this),
-    socket(this,"arrera-postite"),
     settings("arrera-postite")
 {
     ui->setupUi(this);
@@ -17,7 +16,6 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     nameFile = "";
     typeFile = "ab";
     pageApropos = 0;
-    QString cheminIni;
     viewOpen = false;
     // Index Page
     indexMain = ui->postite->indexOf(ui->main);

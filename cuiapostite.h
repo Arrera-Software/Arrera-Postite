@@ -21,7 +21,7 @@
 #include <ctigerdemon.h>
 #include <csetting.h>
 #include "windowsupdate.h"
-#include "carreraclient.h"
+// #include "carreraclient.h"
 #include "fenetreview.h"
 #include "cdetectionos.h"
 
@@ -162,7 +162,7 @@ private:
     WindowsUpdate winUpdate;
     fenetreView viewWindows;
     bool viewOpen;
-    CArreraClient socket;
+    // CArreraClient socket;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
     int getColone(int tab);
