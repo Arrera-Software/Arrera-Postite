@@ -43,10 +43,15 @@ RESOURCES += \
 macx{
     ICON = arrera-postiste.icns
 
-    QMAKE_INFO_PLIST = Info.plist
+    # Fichier ressource pour le bundle Mac
+    QMAKE_BUNDLE_DATA += iniModel
 
-    DISTFILES += \
-        Info.plist
+    iniModel.files = postite.ini      # chemin relatif dans le projet
+    iniModel.path = Resources                 # cible = Contents/Resources dans .app
+
 }
+
+DISTFILES += \
+    postite.ini
 
 

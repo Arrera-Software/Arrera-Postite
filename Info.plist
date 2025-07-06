@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>arrera-postiste.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.arrera.Arrera-Postite</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>

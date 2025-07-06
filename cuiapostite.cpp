@@ -16,6 +16,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     nameFile = "";
     typeFile = "ab";
     pageApropos = 0;
+    QString cheminIni;
     viewOpen = false;
     // Index Page
     indexMain = ui->postite->indexOf(ui->main);
@@ -53,18 +54,18 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     // Partie parametre
 
     if (osDect.getosApple()){
-        QSettings settings(QSettings::NativeFormat, QSettings::UserScope,
-                           "arrera-software", "postiste");
+        cheminIni = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/.config/postite.ini";
     }else{
-
-        if (!fileExists("postite.ini"))
-        {
-            createFile();
-            ui->postite->setCurrentIndex(indexAcceuil);
-        }
-
-        QSettings settings("postite.ini", QSettings::IniFormat);
+        cheminIni = "postite.ini";
     }
+
+    if (!fileExists(cheminIni))
+    {
+        createFile();
+        ui->postite->setCurrentIndex(indexAcceuil);
+    }
+
+    QSettings settings("postite.ini", QSettings::IniFormat);
 
     settings.beginGroup("postite");
     color = settings.value("color").toString();
@@ -78,15 +79,6 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     else{
         setViewFolder();
         ui->postite->setCurrentIndex(indexFile);
-    }
-
-    if (!settings.contains("emplacement")) {
-        QMessageBox::warning(this, "Erreur", "Aucune configuration détectée !");
-        settings.beginGroup("postite");
-        settings.setValue("color","null");
-        settings.setValue("emplacement","null");
-        settings.endGroup();
-        settings.sync();
     }
 
     // Set de l'ongets par default
@@ -297,7 +289,15 @@ bool CUIAPostite::fileExists(const QString &filePath)
 
 void CUIAPostite::createFile()
 {
-    QSettings settings("postite.ini", QSettings::IniFormat);
+    QString cheminIni;
+
+    if (osDect.getosApple()){
+        cheminIni = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/.config/postite.ini";
+    }else{
+        cheminIni = "postite.ini";
+    }
+
+    settings(cheminIni, QSettings::IniFormat);
     settings.beginGroup("postite");
     settings.setValue("emplacement", "null");
     settings.setValue("color", "white");

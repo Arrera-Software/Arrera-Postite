@@ -19,6 +19,7 @@
 #include <QKeySequence>
 #include <QDesktopServices>
 #include <ctigerdemon.h>
+#include <QStandardPaths>
 #include "windowsupdate.h"
 #include "carreraclient.h"
 #include "fenetreview.h"
