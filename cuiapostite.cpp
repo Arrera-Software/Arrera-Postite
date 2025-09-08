@@ -272,31 +272,101 @@ void CUIAPostite::on_IDC_SETEMPLACEMENT_clicked()
 
 void CUIAPostite::on_IDC_SETWORDSPACE1_clicked()
 {
+    QString folder = QFileDialog::getExistingDirectory(this,
+                                                       "Choisir un dossier",
+                                                       QDir::homePath(),
+                                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
+    if (folder.isEmpty())
+    {
+        QMessageBox::warning(this,"Arrera Postite","Aucun dossier selectionner");
+    }
+    else
+    {
+        settings.setValeur("workspace","one", folder);
+        QMessageBox::information(this,"Arrera Postite","Emplacement de travail n°1 enregistré");
+    }
+    setViewFolder();
 }
 
 
 void CUIAPostite::on_IDC_SETWORDSPACE2_clicked()
 {
+    QString folder = QFileDialog::getExistingDirectory(this,
+                                                       "Choisir un dossier",
+                                                       QDir::homePath(),
+                                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
+    if (folder.isEmpty())
+    {
+        QMessageBox::warning(this,"Arrera Postite","Aucun dossier selectionner");
+    }
+    else
+    {
+        settings.setValeur("workspace","two", folder);
+        QMessageBox::information(this,"Arrera Postite","Emplacement de travail n°2 enregistré");
+    }
+    setViewFolder();
 }
 
 
 void CUIAPostite::on_IDC_SETWORDSPACE3_clicked()
 {
+    QString folder = QFileDialog::getExistingDirectory(this,
+                                                       "Choisir un dossier",
+                                                       QDir::homePath(),
+                                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
+    if (folder.isEmpty())
+    {
+        QMessageBox::warning(this,"Arrera Postite","Aucun dossier selectionner");
+    }
+    else
+    {
+        settings.setValeur("workspace","three", folder);
+        QMessageBox::information(this,"Arrera Postite","Emplacement de travail n°3 enregistré");
+    }
+    setViewFolder();
 }
 
 
 void CUIAPostite::on_IDC_SETWORDSPACE4_clicked()
 {
+    QString folder = QFileDialog::getExistingDirectory(this,
+                                                       "Choisir un dossier",
+                                                       QDir::homePath(),
+                                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
+    if (folder.isEmpty())
+    {
+        QMessageBox::warning(this,"Arrera Postite","Aucun dossier selectionner");
+    }
+    else
+    {
+        settings.setValeur("workspace","four", folder);
+        QMessageBox::information(this,"Arrera Postite","Emplacement de travail n°4 enregistré");
+    }
+    setViewFolder();
 }
 
 
 void CUIAPostite::on_IDC_SETWORDSPACE5_clicked()
 {
+    QString folder = QFileDialog::getExistingDirectory(this,
+                                                       "Choisir un dossier",
+                                                       QDir::homePath(),
+                                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
+    if (folder.isEmpty())
+    {
+        QMessageBox::warning(this,"Arrera Postite","Aucun dossier selectionner");
+    }
+    else
+    {
+        settings.setValeur("workspace","five", folder);
+        QMessageBox::information(this,"Arrera Postite","Emplacement de travail n°5 enregistré");
+    }
+    setViewFolder();
 }
 
 bool CUIAPostite::emplacementIsSet()
@@ -627,6 +697,7 @@ void CUIAPostite::setViewFolder()
     ui->IDC_VIEWFILE->hideColumn(1);
     ui->IDC_VIEWFILE->hideColumn(2);
     ui->IDC_VIEWFILE->hideColumn(3);
+    setComboxAcceuil();
 }
 
 void CUIAPostite::openFileTreeView(const QModelIndex &index)
@@ -1044,4 +1115,36 @@ void CUIAPostite::on_IDC_ONGLET_clicked()
 void CUIAPostite::closeOnglets(){
     ui->VIEWFILEMAKEDOWN->setVisible(true);
     viewOpen = false;
+}
+
+void CUIAPostite::setComboxAcceuil(){
+    ui->IDC_LISTWORDSPACE->clear();
+
+    QStringList listSpace;
+
+    if (getEmplacement()!="null"){
+        listSpace += "DEFAULT";
+    }
+
+    if (getWordSpace1() != "null"){
+        listSpace += "ESPACE 1";
+    }
+
+    if (getWordSpace2() != "null"){
+        listSpace += "ESPACE 2";
+    }
+
+    if (getWordSpace3() != "null"){
+        listSpace += "ESPACE 3";
+    }
+
+    if (getWordSpace4() != "null"){
+        listSpace += "ESPACE 4";
+    }
+
+    if (getWordSpace5() != "null"){
+        listSpace += "ESPACE 4";
+    }
+
+    ui->IDC_LISTWORDSPACE->addItems(listSpace);
 }

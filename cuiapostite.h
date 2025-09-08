@@ -189,6 +189,7 @@ private:
     QShortcut *shortcutNew;
     bool traitementSocket(const QString& message);
     void closeOnglets();
+    void setComboxAcceuil();
 
 };
 #endif // CUIAPOSTITE_H
