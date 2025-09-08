@@ -43,6 +43,8 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     connect(shortcutNew, &QShortcut::activated, this,&CUIAPostite::on_IDC_NEW_clicked);
     connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_SAVE_clicked);
     connect(shortcutSave, &QShortcut::activated, this,&CUIAPostite::on_IDC_OPEN_clicked);
+    connect(ui->IDC_LISTWORDSPACE,qOverload<int>(&QComboBox::currentIndexChanged),this,&CUIAPostite::setViewFolder);
+
     // Fenetre fille
     connect(this, &QObject::destroyed, &viewWindows, &QWidget::close);
     connect(&viewWindows, &fenetreView::closeSignal , this, &CUIAPostite::closeOnglets);
@@ -69,6 +71,7 @@ CUIAPostite::CUIAPostite(QWidget *parent)
         ui->postite->setCurrentIndex(indexAcceuil);
     }
     else{
+        setComboxAcceuil();
         setViewFolder();
         ui->postite->setCurrentIndex(indexFile);
     }
@@ -214,7 +217,9 @@ void CUIAPostite::on_IDC_QUIT_clicked()
     }
     else
     {
+        setViewFolder();
         ui->postite->setCurrentIndex(indexFile);
+        setComboxAcceuil();
     }
 }
 
@@ -688,16 +693,36 @@ void CUIAPostite::on_IDC_CANCELTABLEAU_clicked()
 
 void CUIAPostite::setViewFolder()
 {
-    model->setRootPath(getEmplacement());
-    model->setNameFilters(QStringList() << "*.ab");
-    model->setNameFilterDisables(false);
-    model->setFilter(QDir::Files | QDir::AllDirs | QDir::NoDotAndDotDot);
-    ui->IDC_VIEWFILE->setModel(model);
-    ui->IDC_VIEWFILE->setRootIndex(model->index(getEmplacement()));
-    ui->IDC_VIEWFILE->hideColumn(1);
-    ui->IDC_VIEWFILE->hideColumn(2);
-    ui->IDC_VIEWFILE->hideColumn(3);
-    setComboxAcceuil();
+    QString directory;
+    QString outConbo = ui->IDC_LISTWORDSPACE->currentText();
+
+    if (outConbo == "ESPACE 1"){
+        directory = getWordSpace1();
+    }else if (outConbo == "ESPACE 2"){
+        directory = getWordSpace2();
+    }else if (outConbo == "ESPACE 3"){
+        directory = getWordSpace3();
+    }else if (outConbo == "ESPACE 4"){
+        directory = getWordSpace4();
+    }else if (outConbo == "ESPACE 5"){
+        directory = getWordSpace5();
+    }else {
+        directory = getEmplacement();
+    }
+
+    if (directory != "null"){
+        model->setRootPath(directory);
+        model->setNameFilters(QStringList() << "*.ab");
+        model->setNameFilterDisables(false);
+        model->setFilter(QDir::Files | QDir::AllDirs | QDir::NoDotAndDotDot);
+        ui->IDC_VIEWFILE->setModel(model);
+        ui->IDC_VIEWFILE->setRootIndex(model->index(directory));
+        ui->IDC_VIEWFILE->hideColumn(1);
+        ui->IDC_VIEWFILE->hideColumn(2);
+        ui->IDC_VIEWFILE->hideColumn(3);
+    }else{
+        ui->postite->setCurrentIndex(indexAcceuil);
+    }
 }
 
 void CUIAPostite::openFileTreeView(const QModelIndex &index)
@@ -1143,7 +1168,7 @@ void CUIAPostite::setComboxAcceuil(){
     }
 
     if (getWordSpace5() != "null"){
-        listSpace += "ESPACE 4";
+        listSpace += "ESPACE 5";
     }
 
     ui->IDC_LISTWORDSPACE->addItems(listSpace);
