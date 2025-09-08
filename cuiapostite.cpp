@@ -55,9 +55,16 @@ CUIAPostite::CUIAPostite(QWidget *parent)
     if (settings.getFileCreated()){
         settings.setValeur("postite","emplacement","null");
         settings.setValeur("postite","color", "white");
+        settings.setValeur("workspace","one","null");
+        settings.setValeur("workspace","two","null");
+        settings.setValeur("workspace","three","null");
+        settings.setValeur("workspace","four","null");
+        settings.setValeur("workspace","five","null");
         ui->postite->setCurrentIndex(indexAcceuil);
     }
-    else if (getEmplacement() == "null")
+    else if (getEmplacement() == "null" && getWordSpace1() == "null" &&
+               getWordSpace2() == "null" && getWordSpace3() == "null" &&
+               getWordSpace4() == "null" && getWordSpace5() == "null")
     {
         ui->postite->setCurrentIndex(indexAcceuil);
     }
@@ -271,6 +278,31 @@ bool CUIAPostite::emplacementIsSet()
 QString CUIAPostite::getEmplacement()
 {
     return settings.getValeur("postite","emplacement");
+}
+
+QString CUIAPostite::getWordSpace1()
+{
+    return settings.getValeur("workspace","one");
+}
+
+QString CUIAPostite::getWordSpace2()
+{
+    return settings.getValeur("workspace","two");
+}
+
+QString CUIAPostite::getWordSpace3()
+{
+    return settings.getValeur("workspace","three");
+}
+
+QString CUIAPostite::getWordSpace4()
+{
+    return settings.getValeur("workspace","four");
+}
+
+QString CUIAPostite::getWordSpace5()
+{
+    return settings.getValeur("workspace","five");
 }
 
 void CUIAPostite::on_IDC_SETCOLOR_clicked()

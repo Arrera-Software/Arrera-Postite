@@ -165,6 +165,11 @@ private:
     // CArreraClient socket;
     void  insertTableau(int nbColone,int nbLigne);
     QString getEmplacement();
+    QString getWordSpace1();
+    QString getWordSpace2();
+    QString getWordSpace3();
+    QString getWordSpace4();
+    QString getWordSpace5();
     int getColone(int tab);
     int getLigne(int tab);
     void setViewFolder();
