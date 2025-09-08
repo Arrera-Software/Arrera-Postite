@@ -6,12 +6,25 @@ CSetting::CSetting(const QString &namesoft) {
 
     int os = checkOS();
     QString file;
+    QString standartFolder ;
 
-    if (os == 3){
-        file = QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+
-               "/.config/"+namesoft+".ini";
-    }else{
-        file = namesoft+".ini";
+    if (os == 3 || os == 2){
+        standartFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        QString configFolder = standartFolder + "/.config/" + namesoft;
+
+        // Crée TOUT le chemin des dossiers (si besoin)
+        QDir().mkpath(configFolder);
+
+        file = configFolder + "/config.ini";
+    }
+    else if (os == 1){
+        standartFolder = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+        QDir().mkpath(standartFolder); // Pas de sous-dossier à créer ici
+
+        file = standartFolder + "\\config.ini";
+    } else {
+        file = namesoft + ".ini";
     }
 
     QFileInfo checkFile(file);
@@ -23,7 +36,7 @@ CSetting::CSetting(const QString &namesoft) {
         }
         fileCreated = true;
     }
-    else{
+    else {
         fileCreated = false;
     }
 
@@ -32,13 +45,13 @@ CSetting::CSetting(const QString &namesoft) {
 }
 
 int CSetting::checkOS(){
-    #if defined(Q_OS_WIN)
-        return 1;
-    #elif defined(Q_OS_LINUX)
-        return 2;
-    #elif defined(Q_OS_MAC)
-        return 3;
-    #endif
+#if defined(Q_OS_WIN)
+    return 1;
+#elif defined(Q_OS_LINUX)
+    return 2;
+#elif defined(Q_OS_MAC)
+    return 3;
+#endif
 }
 
 bool CSetting::getFileCreated() const {

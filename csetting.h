@@ -5,6 +5,14 @@
 #include <QString>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QDir>
+
+// debut
+/*
+#include <iostream>
+using namespace std;
+*/
+
 
 class CSetting {
 private:
