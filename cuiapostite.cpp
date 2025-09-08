@@ -270,6 +270,35 @@ void CUIAPostite::on_IDC_SETEMPLACEMENT_clicked()
     setViewFolder();
 }
 
+void CUIAPostite::on_IDC_SETWORDSPACE1_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_SETWORDSPACE2_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_SETWORDSPACE3_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_SETWORDSPACE4_clicked()
+{
+
+}
+
+
+void CUIAPostite::on_IDC_SETWORDSPACE5_clicked()
+{
+
+}
+
 bool CUIAPostite::emplacementIsSet()
 {
     return getEmplacement().isEmpty();

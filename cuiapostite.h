@@ -60,6 +60,16 @@ private slots:
 
     void on_IDC_SETEMPLACEMENT_clicked();
 
+    void on_IDC_SETWORDSPACE1_clicked();
+
+    void on_IDC_SETWORDSPACE2_clicked();
+
+    void on_IDC_SETWORDSPACE3_clicked();
+
+    void on_IDC_SETWORDSPACE4_clicked();
+
+    void on_IDC_SETWORDSPACE5_clicked();
+
     bool emplacementIsSet();
 
     void on_IDC_SETCOLOR_clicked();
