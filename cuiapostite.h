@@ -163,6 +163,7 @@ private slots:
 private:
     Ui::CUIAPostite *ui;
     QFileSystemModel *model;
+    QString currentDirectory;
     int indexMain, indexPara,indexTableau,indexFile,indexAcceuil,indexApropos,pageApropos ;
     int indexOngletFichier,indexOngletTexte,indexOngletTableau,indexOngletInserer,indexOngletExport;
     QString color,nameFile;

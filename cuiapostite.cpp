@@ -720,6 +720,7 @@ void CUIAPostite::setViewFolder()
         ui->IDC_VIEWFILE->hideColumn(1);
         ui->IDC_VIEWFILE->hideColumn(2);
         ui->IDC_VIEWFILE->hideColumn(3);
+        currentDirectory = directory;
     }else{
         ui->postite->setCurrentIndex(indexAcceuil);
     }
@@ -770,7 +771,7 @@ void CUIAPostite::on_IDC_ADDFILEACCEUIL_clicked()
 {
     bool ok;
     typeFile = "ab";
-    QString nom = "" , nomFichier = getEmplacement()+"/";
+    QString nom = "" , nomFichier = currentDirectory+"/";
     ui->ZONETEXTE->clear();
     ui->postite->setCurrentIndex(indexMain);
     QMessageBox::StandardButton reply;
